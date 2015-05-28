@@ -1,0 +1,127 @@
+<!doctype html>
+<html class="no-js" lang="">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Configuration | Symfony2 Media Bundle by Mykees</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/app.css">
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,800,300|Karla:400,400italic,700' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Source+Code+Pro:500' rel='stylesheet' type='text/css'>
+</head>
+<body>
+
+
+<div class="page">
+
+    <div class="header header--media">
+        <div class="header__container">
+            <h1>Symfony2 <span>MediaBundle</span></h1>
+        </div>
+    </div>
+
+    <div class="content">
+
+        <div class="content_container">
+            <div class="nav">
+                <a class="nav__link" href="http://Mykees.github.io/MkMediaBundle/index.html">Présentation</a>
+                <a class="nav__link nav__link--current" href="http://Mykees.github.io/MkMediaBundle/configuration.html">Configuration</a>
+                <a class="nav__link" href="http://Mykees.github.io/MkMediaBundle/uploader.html">Uploader</a>
+                <a class="nav__link" href="http://Mykees.github.io/MkMediaBundle/usage.html">Usage</a>
+                <a class="nav__link" href="http://Mykees.github.io/MkMediaBundle/options.html">Options</a>
+                <a class="nav__link" href="http://Mykees.github.io/MkMediaBundle/infos.html">More infos</a>
+            </div>
+
+            <div class="content__text">
+
+                <!-- INSTALLATION-->
+
+                <h2 class="title-section">Installation :</h2>
+
+                <p>Add package to your composer.json :</p>
+
+                <pre><span class="pl-s"><span class="pl-pds">"</span>require<span class="pl-pds">"</span></span>: {
+    <span class="pl-s"><span class="pl-pds">"</span>mykees/symfony2-media-bundle<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>1.0.*@dev<span class="pl-pds">"</span></span>
+}</pre>
+
+                <p>Add this bundle to your application's kernel :</p>
+
+                <pre><span class="pl-s1"><span class="pl-smi">$bundles</span> <span class="pl-k">=</span> <span class="pl-c1">array</span>(</span>
+        ...
+<span class="pl-s1">        <span class="pl-k">new</span> <span class="pl-c1">Mykees\MediaBundle\</span><span class="pl-c1">MykeesMediaBundle</span>(),</span>
+<span class="pl-s1">);</span></pre>
+
+
+                <p>Add routing in app/config/routing.yml :</p>
+                <pre><span class="pl-s"><span class="pl-ent">mykees_media:</span></span>
+<span class="pl-s">    <span class="pl-ent">resource:</span> <span class="pl-s"><span class="pl-pds">"</span>@MykeesMediaBundle/Resources/config/routing.yml<span class="pl-pds">"</span></span></span>
+<span class="pl-s">    <span class="pl-ent">prefix:</span>   <span class="pl-s">/admin/medias</span></span></pre>
+
+
+                <h2 class="title-section">Make your entity Mediable :</h2>
+<pre><code>// YourProject/YourBundle/Entity/Post
+
+
+use Mykees\MediaBundle\Interfaces\Mediable;
+use Mykees\MediaBundle\Traits\MediableTrait;
+
+/**
+* Post
+*
+* @ORM\Table()
+* @ORM\Entity()
+* @ORM\HasLifecycleCallbacks
+*/
+class Post implements Mediable
+{
+    use MediableTrait;  <div class="light-code">    .....</div>
+}
+</code></pre>
+
+
+            <h3 class="sub-section">Update your database :</h3>
+<pre><code>php app/console doctrine:schema:update --force</code></pre>
+
+            <h3 class="sub-section">Install assets :</h3>
+<pre><code>php app/console assets:install</code></pre>
+
+
+
+
+                <p>That's all for main configuration :)</p>
+            </div>
+
+        </div>
+
+    </div>
+
+<!--OTHERS PROJECTS-->
+    <div class="others__projects">
+
+        <div class="block__projects project__left">
+            <h2 class="project__title project__tag">
+                <a href="http://Mykees.github.io/MkTagBundle/">
+                    <span>Symfony2 TagBundle</span>
+                </a>
+            </h2>
+        </div>
+        <div class="block__projects">
+            <h2 class="project__title project__comment">
+                <a href="http://Mykees.github.io/MkCommentBundle/">
+                    <span>Symfony2 CommentBundle</span>
+                </a>
+            </h2>
+        </div>
+
+    </div>
+
+
+</div>
+
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+</body>
+</html>
