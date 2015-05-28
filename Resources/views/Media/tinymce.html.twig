@@ -1,0 +1,8 @@
+<script src="{{ asset('bundles/mykeesmedia/js/jquery.js') }}" type="text/javascript"></script>
+<script src="{{ asset('bundles/mykeesmedia/js/tinymce/tinymce.min.js') }}" type="text/javascript"></script>
+<script type="text/javascript">
+    var win = (!window.frameElement && window.dialogArguments) || opener || parent || top;
+    var html = '<img src="{{ asset('img/'~media['mykees_mediabundle_show']['file']) }}" alt="{{ media['mykees_mediabundle_show']['name'] }}" class="{{ media['align'] }}">'
+    win.send_to_editor(html);
+    win.tinymce.activeEditor.windowManager.close();
+</script>

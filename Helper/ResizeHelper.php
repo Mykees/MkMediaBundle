@@ -1,0 +1,57 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: tetsu0o
+ * Date: 29/12/14
+ * Time: 02:03
+ */
+
+namespace Mykees\MediaBundle\Helper;
+
+use Imagine\Gmagick\Imagine;
+use Imagine\Image\ImageInterface;
+use Imagine\Image\ImagineInterface;
+use Imagine\Image\Box;
+
+class ResizeHelper {
+
+    public $options;
+    public $webroot;
+
+
+    public function __construct(array $resize_option, $webroot){
+        $this->options = $resize_option;
+        $this->webroot = $webroot.'/img/';
+    }
+
+
+    public function resize($image)
+    {
+        $absolute_path = $this->webroot . $image;
+        $absolute_info = pathinfo($absolute_path);
+
+        if(!empty($this->options))
+        {
+            foreach($this->options['size'] as $k=>$v)
+            {
+                $width = $v['width'];
+                $height = $v['height'];
+                $dest = $absolute_info['dirname'] . '/' . $absolute_info['filename'] . "_$width" . "x$height" . '.jpg';
+
+                if(file_exists($dest))
+                {
+                    return false;
+                }
+
+                $imagine = new \Imagine\Gd\Imagine();
+                $mode = $this->options['mode'];
+
+                $imagine->open($absolute_info['dirname'] . '/' . $absolute_info['filename'] . '.jpg')
+                        ->thumbnail(new Box($width,$height), !empty($mode) && $mode == 'inset' ? ImageInterface::THUMBNAIL_INSET : ImageInterface::THUMBNAIL_OUTBOUND)
+                        ->save($dest);
+            }
+        }
+
+        return true;
+    }
+}

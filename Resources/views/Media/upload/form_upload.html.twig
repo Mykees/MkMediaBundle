@@ -1,0 +1,33 @@
+<div id="upload-area" class="upload-area">
+    <div class="row">
+        <div class="col-md-12">
+            {{ form_start(form,{'attr': { 'class':'dropzone no-margin','id':'my-dropzone' }}) }}
+            <div class="fallback">
+                {{ form_row(form.fileData,{'attr': { 'multiple':'multiple' }} ) }}
+            </div>
+            {{ form_end(form) }}
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <input id="search-media" type="text" class="form-control search-media" placeholder="{{ 'file_search'|trans }}"/>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>{{ 'file_id'|trans }}</th>
+                        <th>{{ 'file_thumb'|trans }}</th>
+                        <th>{{ 'file_name'|trans }}</th>
+                        <th>{{ 'file_path'|trans }}</th>
+                        <th>{{ 'file_actions'|trans }}</th>
+                    </tr>
+                </thead>
+                <tbody id="medias-list" class="medias-list">
+                    {% for media in medias %}
+                        {% include "MykeesMediaBundle:Media:upload/upload_list.html.twig" %}
+                    {% endfor %}
+                </tbody>
+            </table>
+    </div>
+</div>

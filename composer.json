@@ -1,0 +1,32 @@
+{
+    "name": "mykees/symfony2-media-bundle",
+    "type": "symfony-bundle",
+    "description": "symfony media bundle",
+    "keywords": ["symfony media bundle", "image","upload","drag and drop"],
+    "authors": [
+        {
+            "name": "Rafidison Michaël",
+            "email": "rafidisonmichael@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-0": {
+            "Mykees\\MediaBundle": ""
+        }
+    },
+    "require-dev": {
+        "liip/functional-test-bundle": "dev-master",
+        "doctrine/doctrine-fixtures-bundle": "2.2.*@dev"
+    },
+    "require": {
+        "php": ">=5.4",
+        "imagine/Imagine":          "~0.5,<0.7",
+        "symfony/framework-bundle":       "~2.3"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0.x-dev"
+        }
+    },
+    "target-dir" : "Mykees/MediaBundle"
+}

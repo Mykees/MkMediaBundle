@@ -1,0 +1,29 @@
+<tr class="count-tr {{ entity.thumb.id is defined and entity.thumb.id == media.id ? "current-thumb" : '' }}">
+    <td class="text-muted middle">{{ media.id }}</td>
+    <td class="middle"><img src="{{ asset('img/'~media.file) }}" alt="" style="width:90px;"/></td>
+    <td class="text-muted middle"><span>{{ media.name }}</span></td>
+    <td class="text-muted middle">{{ media.file }}</td>
+    <td class="middle">
+
+        {% if mode is defined and mode == 'true' %}
+            <a href="{{ path('mykees_media_show',{ 'model':model,'id':media.id }) }}" class="btn btn-sm btn-default">
+                <i class="glyphicon glyphicon-picture"></i>&nbsp;&nbsp;{{ 'file_insert'|trans }}
+            </a>
+            &nbsp;&nbsp;
+        {% endif %}
+
+        {% if entity.thumb is defined %}
+            {% if entity.thumb is null or entity.thumb.id != media.id %}
+                <a href="{{ path('mykees_media_thumb',{'model':model,'bundle':bundle,'model_id':model_id,'id':media.id }) }}" class="btn btn-sm btn-default">
+                    <i class="glyphicon glyphicon-paperclip"></i>&nbsp;&nbsp;{{ 'featured_image'|trans }}
+                </a>
+                &nbsp;&nbsp;
+            {% endif %}
+        {% endif %}
+
+        <a href="{{ path('mykees_media_delete',{'model':model, 'bundle':bundle, 'id':media.id} ) }}" class="btn btn-sm btn-danger delete_btn">
+            <i class="glyphicon glyphicon-trash"></i>&nbsp;&nbsp;&nbsp;{{ 'file_remove'|trans }}
+        </a>
+
+    </td>
+</tr>

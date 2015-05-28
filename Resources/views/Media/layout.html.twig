@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>{% block title %}Admin{% endblock %}</title>
+    {% block stylesheets %}
+        <link rel="stylesheet" href="{{ asset('bundles/mykeesmedia/css/bootstrap.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('bundles/mykeesmedia/css/media.css') }}">
+        <style>
+            .navbar{border-radius: 0;}
+            body{background-color: #F5F5F5;}
+        </style>
+    {% endblock %}
+</head>
+<body>
+
+
+<div class="container">
+    {% block body %}{% endblock %}
+</div>
+
+
+{% block javascripts %}
+    <script src="{{ asset('bundles/mykeesmedia/js/jquery.js') }}"></script>
+    <script src="{{ asset('bundles/mykeesmedia/js/searchfilter.js') }}"></script>
+{% endblock %}
+</body>
+</html>

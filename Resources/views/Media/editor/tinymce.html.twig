@@ -1,0 +1,23 @@
+<script type="text/javascript" src="{{ asset('bundles/mykeesmedia/js/tinymce/tinymce.min.js') }}"></script>
+<script type="text/javascript">
+    tinymce.init({
+        selector: ".tinymce_init",
+        height: 300,
+        menubar : "tools view edit",
+        plugins: [
+            "advlist autolink link {% if model_id is defined and model_id != null %}image{% endif %} lists charmap hr anchor pagebreak spellchecker",
+            "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
+            "save table contextmenu directionality template paste textcolor {% if model_id is defined and model_id != null %}mykees_media{% endif %}",
+        ],
+        theme_advanced_resizing : true,
+        paste_remove_styles: true,
+        paste_remove_spans: true,
+        paste_stip_class_attributes: true,
+        {% if model_id is defined and model_id != null %}
+        image_explorer:"{{ path('mykees_media',{'model':model,'bundle':bundle,'model_id':model_id,'editor':'true'}) }}",
+        image_editor:"{{ path('mykees_media_show',{'model':model}) }}",
+        {% endif %}
+        relative_urls:false
+        //content_css:'../../../css/wysiwyg.css'
+    });
+</script>

@@ -1,0 +1,41 @@
+mykees_media_show:
+    path: /show/{model}/{id}
+    defaults: { _controller: MykeesMediaBundle:Medias:show, model:null,id:null }
+    requirements:
+        model: '[a-zA-Z0-9]+'
+        id: \d+
+
+mykees_media_add:
+    path: /add/{model}/{bundle}/{model_id}
+    defaults: { _controller: MykeesMediaBundle:Medias:add }
+    requirements:
+        model: '[a-zA-Z0-9]+'
+        bundle: '[a-zA-Z0-9]+'
+        model_id: \d+
+        _method:  POST
+
+mykees_media_thumb:
+    path: /thumb/{model}/{bundle}/{model_id}/{id}
+    defaults: { _controller: MykeesMediaBundle:Medias:thumb }
+    requirements:
+        model: '[a-zA-Z0-9]+'
+        bundle: '[a-zA-Z0-9]+'
+        model_id: \d+
+        id: \d+
+
+mykees_media_delete:
+    path: /delete/{model}/{bundle}/{id}
+    defaults: { _controller: MykeesMediaBundle:Medias:delete }
+    requirements:
+        model: '[a-zA-Z0-9]+'
+        bundle: '[a-zA-Z0-9]+'
+        id: \d+
+
+mykees_media:
+    path:     /{model}/{bundle}/{model_id}/{editor}
+    defaults: { _controller: MykeesMediaBundle:Medias:index,editor:null }
+    requirements:
+        model: '[a-zA-Z0-9]+'
+        bundle: '[a-zA-Z0-9]+'
+        model_id: \d+
+        editor: '[a-zA-Z0-9]+'

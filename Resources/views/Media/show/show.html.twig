@@ -1,0 +1,54 @@
+{% extends "MykeesMediaBundle:Media:layout.html.twig" %}
+{% block body %}
+    <div class="content" style="padding:0 ">
+        <div class="wrap">
+            <div class="page-title"> <i class="fa fa-pencil"></i>
+                <h3><span class="semi-bold">Détails</span></h3>
+            </div>
+
+            <div class="row" id="wrapper-row">
+                <div class="col-md-6"><img src="{{ asset('img/'~media.file) }}" alt="media..name" style="width:400px;"/></div>
+                <div class="col-md-6">
+
+                    {{ form_start(form) }}
+
+                    <div class="form-group">
+                        {{ form_row(form.name,{'attr': { 'class':'form-control' }} ) }}
+                    </div>
+
+                    <div class="form-group">
+                        {{ form_row(form.file,{'attr': { 'class':'form-control' }} ) }}
+                    </div>
+                    <input type="hidden" name="model" value="{{ model }}"/>
+                    <label><strong>Alignement : </strong></label>
+                    <div class="radio-group">
+                        <input type="radio" name="align" class="align" id="align-none-up" value="none">
+                        <label for="align-none-up" class="radio-label">Sans alignement</label>
+                    </div>
+
+                    <div class="radio-group">
+                        <input type="radio" name="align" class="align" id="align-left-up" value="align-left" {% if class is defined and class == "align-left" %}checked{% endif %}>
+                        <label for="align-left-up" class="radio-label">Aligner à gauche</label>
+                    </div>
+
+                    <div class="radio-group">
+                        <input type="radio" name="align" class="align" id="align-center-up" value="align-center" {% if class is defined and class == "align-center"  %}checked{% endif %}>
+                        <label for="align-center-up" class="radio-label">Aligner au centre</label>
+                    </div>
+
+                    <div class="radio-group">
+                        <input type="radio" name="align" class="align" id="align-right-up" value="align-right" {% if class is defined and class == "align-right"  %}checked{% endif %}>
+                        <label for="align-right-up" class="radio-label">Aligner à droite</label>
+                    </div>
+                    <div class="clearfix"></div>
+                    <input type="submit" class="btn btn-success btn-cons" value="Insérer dans l'article"/>
+
+                    {{ form_end(form) }}
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+{% endblock %}

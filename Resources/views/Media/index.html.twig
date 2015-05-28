@@ -1,0 +1,20 @@
+{% extends 'MykeesMediaBundle:Media:layout.html.twig' %}
+
+{% block stylesheets %}
+{{ parent() }}
+<link rel="stylesheet" href="{{ asset('bundles/mykeesmedia/css/dropzone.css') }}">
+{% endblock %}
+
+{% block body %}
+
+    {% if model_id is defined and model_id != null %}
+        {% include "MykeesMediaBundle:Media:upload/form_upload.html.twig" %}
+        {% else %}
+        <h1>Sorry but Model Id must be defined</h1>
+    {% endif %}
+
+{% endblock %}
+{% block javascripts %}
+{{ parent() }}
+<script type="text/javascript" src="{{ asset('bundles/mykeesmedia/js/dropzone.min.js') }}"></script>
+{% endblock %}
