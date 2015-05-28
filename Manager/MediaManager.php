@@ -134,7 +134,12 @@ class MediaManager extends AbstractManager
             }
         }
 
-        return unlink($this->webroot() . $media->getFile());
+        if(file_exists($this->webroot() . $media->getFile()))
+        {
+            return unlink($this->webroot() . $media->getFile());
+        }
+
+        return false;
     }
 
     public function remove(Media $media)
