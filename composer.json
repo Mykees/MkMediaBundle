@@ -27,7 +27,7 @@
         "symfony/assetic-bundle": "~2.3",
         "symfony/twig-bundle": "~2.1",
         "twig/extensions": "~1.0",
-        "mykees/blog-bundle": "1.0.*@dev"
+        "mykees/blog-bundle":"1.0.*@dev"
     },
     "require": {
         "php": ">=5.4",
