@@ -34,7 +34,7 @@ class MediasListener
         if($model instanceof Mediable)
         {
             $manager = new MediaManager($this->managerRegistry,$this->rootDir,$this->resize_parameters);
-            $manager->removeAllMediasForModel($model,$this->resize_parameters);
+            $manager->removeAllMediasForModel($model);
         }
     }
 

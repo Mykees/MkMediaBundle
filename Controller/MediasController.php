@@ -140,8 +140,6 @@ class MediasController extends Controller
      */
     public function showAction( $model=null, $id = null, Request $request )
     {
-        $params = [];
-
         if( !$id )
         {
             $params = [

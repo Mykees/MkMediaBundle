@@ -62,7 +62,7 @@ class UploadSubscriber implements EventSubscriberInterface {
             if(!file_exists($dir)){mkdir($dir,0777);}
 
             //clean and define path filename
-            $filename = $this->cleanFilename( $fileUploaded->getClientOriginalName(), $extension, $webroot );
+            $filename = $this->cleanFilename( $fileUploaded->getClientOriginalName(), $extension );
             //test duplicate
             $name = $this->mediaExist( $filename,$webroot );
 
@@ -110,10 +110,9 @@ class UploadSubscriber implements EventSubscriberInterface {
      * clean the filename
      * @param $filename
      * @param $extension
-     * @param $webroot
      * @return string
      */
-    private function cleanFilename( $filename, $extension, $webroot )
+    private function cleanFilename( $filename, $extension )
     {
         $f = explode('.',$filename);
         $cleanFilename = Urlizer::urlize(implode('.',array_slice($f,0,-1)));
