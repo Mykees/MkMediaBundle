@@ -37,7 +37,8 @@ class Urlizer
      */
     public static function seemsUtf8($string)
     {
-        for ($i = 0; $i < strlen($string); $i++) {
+        $stringLength = strlen($string);
+        for ($i = 0; $i < $stringLength; $i++) {
             if (ord($string[$i]) < 0x80) continue; # 0bbbbbbb
             elseif ((ord($string[$i]) & 0xE0) == 0xC0) $n=1; # 110bbbbb
             elseif ((ord($string[$i]) & 0xF0) == 0xE0) $n=2; # 1110bbbb
@@ -196,62 +197,6 @@ class Urlizer
         return $string;
     }
 
-    /**
-    * US-ASCII transliterations of Unicode text
-    * Ported Sean M. Burke's Text::Unidecode Perl module (He did all the hard work!)
-    * Warning: you should only pass this well formed UTF-8!
-    * Be aware it works by making a copy of the input string which it appends transliterated
-    * characters to - it uses a PHP output buffer to do this - it means, memory use will increase,
-    * requiring up to the same amount again as the input string
-    *
-    * @see http://search.cpan.org/~sburke/Text-Unidecode-0.04/lib/Text/Unidecode.pm
-    * @param string UTF-8 string to convert
-    * @author <hsivonen@iki.fi>
-    * @param string (default = ?) Character use if character unknown
-    * @return string US-ASCII string
-    */
-    public static function utf8ToAscii($str, $unknown = '?')
-    {
-        static $UTF8_TO_ASCII;
-
-        if (strlen($str) == 0) {
-            return;
-        }
-
-        preg_match_all('/.{1}|[^\x00]{1,1}$/us', $str, $ar);
-        $chars = $ar[0];
-
-        foreach ($chars as $i => $c) {
-            $ud = 0;
-            if (ord($c{0})>=0 && ord($c{0})<=127) { continue; } // ASCII - next please
-            if (ord($c{0})>=192 && ord($c{0})<=223) { $ord = (ord($c{0})-192)*64 + (ord($c{1})-128); }
-            if (ord($c{0})>=224 && ord($c{0})<=239) { $ord = (ord($c{0})-224)*4096 + (ord($c{1})-128)*64 + (ord($c{2})-128); }
-            if (ord($c{0})>=240 && ord($c{0})<=247) { $ord = (ord($c{0})-240)*262144 + (ord($c{1})-128)*4096 + (ord($c{2})-128)*64 + (ord($c{3})-128); }
-            if (ord($c{0})>=248 && ord($c{0})<=251) { $ord = (ord($c{0})-248)*16777216 + (ord($c{1})-128)*262144 + (ord($c{2})-128)*4096 + (ord($c{3})-128)*64 + (ord($c{4})-128); }
-            if (ord($c{0})>=252 && ord($c{0})<=253) { $ord = (ord($c{0})-252)*1073741824 + (ord($c{1})-128)*16777216 + (ord($c{2})-128)*262144 + (ord($c{3})-128)*4096 + (ord($c{4})-128)*64 + (ord($c{5})-128); }
-            if (ord($c{0})>=254 && ord($c{0})<=255) { $chars{$i} = $unknown; continue; } //error
-
-            $bank = $ord >> 8;
-
-            if (!array_key_exists($bank, (array)$UTF8_TO_ASCII)) {
-                $bankfile = __DIR__. '/data/'. sprintf("x%02x",$bank).'.php';
-                if (file_exists($bankfile)) {
-                    include $bankfile;
-                } else {
-                    $UTF8_TO_ASCII[$bank] = array();
-                }
-            }
-
-            $newchar = $ord & 255;
-            if (array_key_exists($newchar, $UTF8_TO_ASCII[$bank])) {
-                $chars{$i} = $UTF8_TO_ASCII[$bank][$newchar];
-            } else {
-                $chars{$i} = $unknown;
-            }
-        }
-
-        return implode('', $chars);
-    }
 
     /**
      * Does not transliterate correctly eastern languages

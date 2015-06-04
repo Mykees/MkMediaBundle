@@ -3,6 +3,7 @@
     "type": "symfony-bundle",
     "description": "symfony media bundle",
     "keywords": ["symfony2","media","bundle","image","upload","drag and drop"],
+    "license": "MIT",
     "authors": [
         {
             "name": "Rafidison Michaël",

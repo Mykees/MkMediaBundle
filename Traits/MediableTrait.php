@@ -26,4 +26,4 @@ trait MediableTrait {
         $this->medias = $this->medias ? : new ArrayCollection();
         return $this->medias;
     }
-} 
+}

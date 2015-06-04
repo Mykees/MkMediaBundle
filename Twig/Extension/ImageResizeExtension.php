@@ -9,8 +9,6 @@
 namespace Mykees\MediaBundle\Twig\Extension;
 
 
-use Symfony\Component\DependencyInjection\ContainerInterface;
-
 class ImageResizeExtension extends \Twig_Extension
 {
     public $rootDir;

@@ -10,7 +10,6 @@ namespace Mykees\MediaBundle\Repository;
 
 
 use Doctrine\ORM\EntityRepository;
-use Mykees\MediaBundle\Interfaces\Mediable;
 
 class MediaRepository extends EntityRepository
 {
@@ -103,4 +102,4 @@ class MediaRepository extends EntityRepository
                     ->getResult();
     }
 
-} 
+}

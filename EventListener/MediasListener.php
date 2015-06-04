@@ -8,7 +8,7 @@
 
 namespace Mykees\MediaBundle\EventListener;
 
-
+use Doctrine\ORM\Events;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Mykees\MediaBundle\Interfaces\Mediable;
 use Doctrine\Common\Persistence\ManagerRegistry;

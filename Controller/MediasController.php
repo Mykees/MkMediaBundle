@@ -1,21 +1,19 @@
 <?php
-
 namespace Mykees\MediaBundle\Controller;
 
 use Mykees\MediaBundle\Entity\Media;
 use Mykees\MediaBundle\Event\MediaUploadEvents;
 use Mykees\MediaBundle\Event\UploadEvent;
-use Mykees\MediaBundle\Form\MediaShowType;
-use Mykees\MediaBundle\Form\MediaType;
+use Mykees\MediaBundle\Form\Type\MediaShowType;
+use Mykees\MediaBundle\Form\Type\MediaType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class MediasController extends Controller
 {
 
-    public function getManage()
+    private function getManage()
     {
         return $this->getDoctrine()->getManager();
     }
@@ -91,7 +89,7 @@ class MediasController extends Controller
         }
     }
 
-    public function initEvent($file,$model,$model_id)
+    private function initEvent($file,$model,$model_id)
     {
         $event = new UploadEvent();
         $event->setFile($file);
@@ -136,7 +134,6 @@ class MediasController extends Controller
     {
         if( !$id )
         {
-            $src = $request->get('src');
             $class = $request->get('class');
             $alt = $request->get('alt');
             $media = $this->getManage()->getRepository('MykeesMediaBundle:Media')->findOneBy(['name'=>$alt,'model'=>$model]);
@@ -197,7 +194,7 @@ class MediasController extends Controller
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function referer(Request $request)
+    private function referer(Request $request)
     {
         $referer = $request->headers->get('referer');
 

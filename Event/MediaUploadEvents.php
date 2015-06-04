@@ -13,4 +13,4 @@ final class MediaUploadEvents {
 
     const UPLOAD_FILE = 'mk_media.upload';
     const RESIZE_FILE = 'mk_media.resize';
-} 
+}

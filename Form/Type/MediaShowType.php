@@ -1,12 +1,18 @@
 <?php
+/**
+ * Created by PhpStorm.
+ * User: Rafidion Michael
+ * Date: 18/11/2014
+ * Time: 01:22
+ */
 
-namespace Mykees\MediaBundle\Form;
+namespace Mykees\MediaBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class MediaType extends AbstractType
+class MediaShowType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -15,10 +21,15 @@ class MediaType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('fileData','file')
+            ->add('name','text',[
+                "label"=>"Nom de l'image"
+            ])
+            ->add('file','text',[
+                "label"=>"Chemin de l'image"
+            ])
         ;
     }
-    
+
     /**
      * @param OptionsResolverInterface $resolver
      */
@@ -34,6 +45,6 @@ class MediaType extends AbstractType
      */
     public function getName()
     {
-        return 'mykees_mediabundle_media';
+        return 'mykees_mediabundle_show';
     }
 }

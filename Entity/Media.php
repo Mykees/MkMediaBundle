@@ -154,11 +154,6 @@ class Media
         return $this->modelId;
     }
 
-
-    public function webroot(){
-        return __DIR__.'/../../../../web/img/';
-    }
-
     /**
      * @return mixed
      */

@@ -8,10 +8,8 @@
 
 namespace Mykees\MediaBundle\Helper;
 
-use Imagine\Gmagick\Imagine;
 use Imagine\Image\ImageInterface;
 use Imagine\Image\ImagineInterface;
-use Imagine\Image\Box;
 
 class ResizeHelper {
 

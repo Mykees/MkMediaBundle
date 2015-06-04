@@ -158,7 +158,7 @@ class MediaManager extends AbstractManager
         $model_name = Reflection::getClassShortName($model);
         $model_id = $model->getId();
 
-        if(method_exists($model,'getThumb') && $model->getThumb() != null)
+        if(method_exists($model,'getThumb') && $model->getThumb() !== null)
         {
             $model->setThumb(null);
         }
