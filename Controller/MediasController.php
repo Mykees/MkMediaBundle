@@ -1,4 +1,5 @@
 <?php
+
 namespace Mykees\MediaBundle\Controller;
 
 use Mykees\MediaBundle\Entity\Media;
@@ -28,27 +29,27 @@ class MediasController extends Controller
      */
     public function indexAction( $model, $bundle, $model_id, $editor )
     {
-        $params = [
-            'medias'=>$this->get('mk.media.manager')->findMediasByModelAndId($model, $model_id),
-            'entity'=>$this->getManage()->getRepository("$bundle:$model")->find($model_id),
-            'mode'=>$editor=='true' ? $editor : null,
-            'url'=>$editor == "true" ? ['model'=>$model,'bundle'=>$bundle,'model_id'=>$model_id,'mode'=>'true'] : ['model'=>$model,'bundle'=>$bundle,'model_id'=>$model_id]
-        ];
+        $medias  = $this->get('mk.media.manager')->findMediasByModelAndId($model, $model_id);
+        $entity  = $this->getManage()->getRepository("$bundle:$model")->find($model_id);
+        $mode    = $editor=='true' ? $editor : null ;
+        $url = $editor == "true" ? ['model'=>$model,'bundle'=>$bundle,'model_id'=>$model_id,'mode'=>'true'] : ['model'=>$model,'bundle'=>$bundle,'model_id'=>$model_id];
         $form = $this->createForm(
             new MediaType(),
             new Media,
             [
-                'action' => $this->generateUrl('mykees_media_add',$params['url']),
+                'action' => $this->generateUrl('mykees_media_add',$url),
                 'method' => 'POST',
             ]
         );
 
         return $this->render('MykeesMediaBundle:Media:index.html.twig',[
             'form'=>$form->createView(),
+            'medias'=> $medias,
+            'entity'=>$entity,
             'model'=>$model,
             'bundle'=> $bundle,
             'model_id'=> $model_id,
-            'params'=>$params
+            "mode"=> $mode
         ]);
     }
 
@@ -60,26 +61,22 @@ class MediasController extends Controller
      */
     public function addAction( Request $request )
     {
-        $requestArray = [
-            'model_id'=>$request->get('model_id'),
-            'model'=>$request->get('model'),
-            'file'=>$request->files,
-            'bundle'=>$request->get('bundle'),
-            'mode'=>$request->get('mode')
-        ];
-
-        if( $request->isXmlHttpRequest() && $requestArray['file'] )
+        $file     = $request->files;
+        $model_id = $request->get('model_id');
+        $model    = $request->get('model');
+        $bundle   = $request->get('bundle');
+        $mode     = $request->get('mode');
+        if( $request->isXmlHttpRequest() && $file )
         {
             //Init Event
-            $event = $this->initEvent($requestArray['file'],$requestArray['model'],$requestArray['model_id']);
+            $event = $this->initEvent($file,$model,$model_id);
 
             if($event->getMedia())
             {
-                $requestArray['entity'] = $this->getManage()->getRepository("{$requestArray['bundle']}:{$requestArray['model']}")->find($requestArray['model_id']);
-                $requestArray['media'] = $event->getMedia();
+                $entity = $this->getManage()->getRepository("$bundle:$model")->find($model_id);
 
                 return $this->render('MykeesMediaBundle:Media:upload/upload_list.html.twig',[
-                    'params'=>$requestArray
+                    'media'=>$event->getMedia(),'model'=>$model,'entity'=>$entity,'bundle'=>$bundle,'model_id'=>$model_id,'mode'=>$mode
                 ]);
             }else{
                 $response = new Response();
@@ -105,11 +102,6 @@ class MediasController extends Controller
         $this->get("event_dispatcher")->dispatch(MediaUploadEvents::UPLOAD_FILE, $event);
 
         return $event;
-    }
-
-    private function configEvent($event)
-    {
-
     }
 
     /**
@@ -141,24 +133,18 @@ class MediasController extends Controller
      */
     public function showAction( $model=null, $id = null, Request $request )
     {
-        $params = [];
-
         if( !$id )
         {
-            $params = [
-                'class'=>$request->get('class'),
-                'alt'=>$request->get('alt')
-            ];
-            $params['media'] = $this->getManage()->getRepository('MykeesMediaBundle:Media')->findOneBy(['name'=>$params['alt'],'model'=>$model]);
+            $class = $request->get('class');
+            $alt = $request->get('alt');
+            $media = $this->getManage()->getRepository('MykeesMediaBundle:Media')->findOneBy(['name'=>$alt,'model'=>$model]);
         }else{
-            $params = [
-                'media'=>$this->getManage()->getRepository('MykeesMediaBundle:Media')->find($id),
-                'class'=>null
-            ];
+            $media = $this->getManage()->getRepository('MykeesMediaBundle:Media')->find($id);
+            $class=null;
         }
         $form = $this->createForm(
             new MediaShowType(),
-            $params['media'],
+            $media,
             [
                 'action' => $this->generateUrl('mykees_media_show',['model'=>$model,'id'=>$id]),
                 'method' => 'POST',
@@ -171,7 +157,7 @@ class MediasController extends Controller
         }
 
         return $this->render('MykeesMediaBundle:Media:show/show.html.twig',[
-            'media'=>$params['media'],'form'=>$form->createView(),'class'=>$params['class'],"model"=>$model
+            'media'=>$media,'form'=>$form->createView(),'class'=>$class,"model"=>$model
         ]);
     }
 
@@ -181,9 +167,10 @@ class MediasController extends Controller
      * @param $model
      * @param $bundle
      * @param $id
+     * @param Request $request
      * @return Response
      */
-    public function deleteAction( $model, $bundle, $id )
+    public function deleteAction( $model, $bundle, $id, Request $request )
     {
         if( $id )
         {
@@ -191,10 +178,10 @@ class MediasController extends Controller
             $media_manager = $this->get('mk.media.manager');
             $media_manager->unlink($model,$media);
 
-            $model_referer = $this->getManage()->getRepository("$bundle:$model")->find($media->getMediableId());
-            if(method_exists($model_referer,'getThumb') && $model_referer->getThumb()->getId() == $media->getId())
+            $modelReferer = $this->getManage()->getRepository("$bundle:$model")->find($media->getMediableId());
+            if(method_exists($modelReferer,'getThumb') && $modelReferer->getThumb()->getId() == $media->getId())
             {
-                $model_referer->setThumb(null);
+                $modelReferer->setThumb(null);
             }
 
             $media_manager->remove($media);
