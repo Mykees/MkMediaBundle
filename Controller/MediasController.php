@@ -102,24 +102,22 @@ class MediasController extends Controller
     private function initEvent($file,$model,$model_id)
     {
         $init_event = new UploadEvent();
-        $event = $this->configEvent($init_event,$file,$model,$model_id);
+        $event = $this->setEvent($init_event,$file,$model,$model_id);
         //File upload process
         $this->get("event_dispatcher")->dispatch(MediaUploadEvents::UPLOAD_FILE, $event);
 
         return $event;
     }
 
-    private function configEvent($event,$file,$model,$model_id)
+    public function setEvent($event,$file,$model,$model_id)
     {
-        $params['event'] = [
-            'file'=>$event->setFile($file),
-            'model'=>$event->setMediableModel($model),
-            'model_id'=>$event->setMediableId($model_id),
-            'container'=>$event->setContainer($this->container),
-            'rootDir'=>$event->setRootDir($this->get('kernel')->getRootDir()),
-        ];
+        $event->setFile($file);
+        $event->setMediableModel($model);
+        $event->setMediableId($model_id);
+        $event->setContainer($this->container);
+        $event->setRootDir($this->get('kernel')->getRootDir());
 
-        return $params['event'];
+        return $event;
     }
 
     /**
