@@ -189,7 +189,7 @@ class MediasController extends Controller
             $media_manager->unlink($model,$media);
 
             $model_referer = $this->getManage()->getRepository("$bundle:$model")->find($media->getMediableId());
-            if(method_exists($model_referer,'getThumb') && $model_referer->getThumb()->getId() == $media->getId())
+            if(method_exists($model_referer,'getThumb') && $model_referer->getThumb() !== null && $model_referer->getThumb()->getId() == $media->getId())
             {
                 $model_referer->setThumb(null);
             }

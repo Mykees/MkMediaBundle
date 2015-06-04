@@ -26,26 +26,31 @@ class ResizeHelper {
     {
         $absolute_path = $this->webroot . $image;
         $absolute_info = pathinfo($absolute_path);
+        $allowedExtension = ['jpg','JPG','jpeg',"JPEG",'png','PNG','gif','GIF'];
+        $extension = pathinfo($image);
 
-        if(!empty($this->options))
+        if(in_array($extension['extension'],$allowedExtension))
         {
-            foreach($this->options['size'] as $k=>$v)
+            if(!empty($this->options))
             {
-                $width = $v['width'];
-                $height = $v['height'];
-                $dest = $absolute_info['dirname'] . '/' . $absolute_info['filename'] . "_$width" . "x$height" . '.jpg';
-
-                if(file_exists($dest))
+                foreach($this->options['size'] as $k=>$v)
                 {
-                    return false;
-                }
+                    $width = $v['width'];
+                    $height = $v['height'];
+                    $dest = $absolute_info['dirname'] . '/' . $absolute_info['filename'] . "_$width" . "x$height" . '.jpg';
 
-                $imagine = new \Imagine\Gd\Imagine();
-                $mode = $this->options['mode'];
+                    if(file_exists($dest))
+                    {
+                        return false;
+                    }
 
-                $imagine->open($absolute_info['dirname'] . '/' . $absolute_info['filename'] . '.jpg')
+                    $imagine = new \Imagine\Gd\Imagine();
+                    $mode = $this->options['mode'];
+
+                    $imagine->open($absolute_info['dirname'] . '/' . $absolute_info['filename'] . '.jpg')
                         ->thumbnail(new \Imagine\Image\Box($width,$height), !empty($mode) && $mode == 'inset' ? ImageInterface::THUMBNAIL_INSET : ImageInterface::THUMBNAIL_OUTBOUND)
                         ->save($dest);
+                }
             }
         }
 

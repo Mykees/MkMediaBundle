@@ -1,6 +1,16 @@
 <tr class="count-tr {{ params.entity.thumb.id is defined and params.entity.thumb.id == media.id ? "current-thumb" : '' }}">
     <td class="text-muted middle">{{ media.id }}</td>
-    <td class="middle"><img src="{{ asset('img/'~media.file) }}" alt="" style="width:90px;"/></td>
+    <td class="middle">
+        {% set ext = media.file|split('.') %}
+        {% set imageExtension = ['jpg','JPG','jpeg',"JPEG",'png','PNG','gif','GIF'] %}
+        {% if ext[1] in imageExtension %}
+            <img src="{{ asset('img/'~media.file) }}" alt="" style="width:90px;"/>
+        {% elseif ext[1] == "pdf" %}
+            <img src="{{ asset('bundles/mykeesmedia/images/pdf.jpg') }}" alt="" style="width:60px;margin-left: 15px;">
+        {% elseif ext[1] == "txt" %}
+            <img src="{{ asset('bundles/mykeesmedia/images/txt.jpg') }}" alt="" style="width:60px;margin-left: 15px;">
+        {% endif %}
+    </td>
     <td class="text-muted middle"><span>{{ media.name }}</span></td>
     <td class="text-muted middle">{{ media.file }}</td>
     <td class="middle">
