@@ -9,7 +9,6 @@
 namespace Mykees\MediaBundle\Twig\Extension;
 use Mykees\MediaBundle\Interfaces\Mediable;
 use Mykees\MediaBundle\Manager\MediaManager;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Mykees\MediaBundle\Util\Reflection;
 
@@ -18,27 +17,27 @@ class UploaderExtension extends \Twig_Extension
 
 
     public $container;
-    public $manager;
     public $generator;
 
 
-    public function __construct(MediaManager $manager ,ContainerInterface $container,UrlGeneratorInterface $generator )
+    public function __construct(MediaManager $manager,UrlGeneratorInterface $generator )
     {
         $this->manager = $manager;
-        $this->container = $container;
         $this->generator = $generator;
     }
 
-    public function getService($id)
-    {
-        return $this->container->get($id);
-    }
 
     public function getFunctions()
     {
         return [
-            'iframe_uploader' => new \Twig_Function_Method($this, 'iframeUploader', array('is_safe' => array('html'))),
-            'editor_uploader' => new \Twig_Function_Method($this, 'wysiwygUploader', array('is_safe' => array('html'))),
+            new \Twig_SimpleFunction('iframe_uploader', [$this, 'iframeUploader'], [
+                'is_safe'=>array('html'),
+                'needs_environment'=>true
+            ]),
+            new \Twig_SimpleFunction('editor_uploader', [$this, 'wysiwygUploader'], [
+                'is_safe'=>array('html'),
+                'needs_environment'=>true
+            ])
         ];
     }
 
@@ -47,7 +46,7 @@ class UploaderExtension extends \Twig_Extension
      * @param $entity
      * @return string
      */
-    public function iframeUploader( Mediable $entity )
+    public function iframeUploader( \Twig_Environment $env, Mediable $entity )
     {
         $model    = Reflection::getClassShortName($entity);
         $model_id = $entity->getId();
@@ -59,10 +58,10 @@ class UploaderExtension extends \Twig_Extension
                 'bundle'=> $bundle,
                 'model_id'=> $model_id
             ]);
-            
+
             return '<iframe src="'.$url.'" style="width:100%;border: none;min-height:100%;" class="iframe-uploader"></iframe>';
         }else{
-            
+
             return '<h3 style="font-weight: bold;text-align: center;color:#777">The <span style="color:#DD6F6F;border-bottom:2px dashed #777;">ID</span> from your entity <span style="color:#DD6F6F;border-bottom:2px dashed #777;">'.$model.'</span> is required to use the uploader</h3>';
         }
     }
@@ -72,13 +71,13 @@ class UploaderExtension extends \Twig_Extension
      * @param $entity
      * @return
      */
-    public function wysiwygUploader( Mediable $entity )
+    public function wysiwygUploader( \Twig_Environment $env, Mediable $entity )
     {
         $model    = Reflection::getClassShortName($entity);
         $model_id = $entity->getId();
         $bundle   = Reflection::getShortBundleRepository($entity);
 
-        return  $this->getService('templating')->render('MykeesMediaBundle:Media:editor/tinymce.html.twig',[
+        return  $env->render('MykeesMediaBundle:Media:editor/tinymce.html.twig',[
             'model'=>$model,
             'model_id'=>$model_id,
             'bundle'=> $bundle,
@@ -90,6 +89,4 @@ class UploaderExtension extends \Twig_Extension
     {
         return "mykees_uploader";
     }
-
-
-} 
+}

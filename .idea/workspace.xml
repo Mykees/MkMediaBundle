@@ -45,14 +45,40 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MediasListener.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="MediasListener.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/EventListener/MediasListener.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.21139102" vertical-offset="527" max-vertical-offset="1440">
+            <state vertical-scroll-proportion="0.0" vertical-offset="527" max-vertical-offset="1440">
               <caret line="29" column="0" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
               <folding>
                 <element signature="e#146#188#0#PHP" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="UploaderExtension.php" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/Twig/Extension/UploaderExtension.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.76666665" vertical-offset="2040" max-vertical-offset="2940">
+              <caret line="91" column="0" selection-start-line="91" selection-start-column="0" selection-end-line="91" selection-end-column="0" />
+              <folding>
+                <element signature="e#6#98#0#PHP" expanded="true" />
+                <element signature="e#145#188#0#PHP" expanded="true" />
+                <marker date="1433421656310" expanded="true" signature="1806:1853" placeholder="..." />
+                <marker date="1433421656310" expanded="true" signature="1872:1916" placeholder="..." />
+                <marker date="1433421656310" expanded="true" signature="1958:2002" placeholder="..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ImageResizeExtension.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Twig/Extension/ImageResizeExtension.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1860">
+              <caret line="61" column="0" selection-start-line="61" selection-start-column="0" selection-end-line="61" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -84,6 +110,8 @@
         <option value="$PROJECT_DIR$/composer.json" />
         <option value="$PROJECT_DIR$/Resources/config/services.yml" />
         <option value="$PROJECT_DIR$/EventListener/MediasListener.php" />
+        <option value="$PROJECT_DIR$/Twig/Extension/ImageResizeExtension.php" />
+        <option value="$PROJECT_DIR$/Twig/Extension/UploaderExtension.php" />
       </list>
     </option>
   </component>
@@ -135,6 +163,24 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="MkMediaBundle" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="MkMediaBundle" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="MkMediaBundle" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Twig" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Extension" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -392,10 +438,32 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/EventListener/MediasListener.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.21139102" vertical-offset="527" max-vertical-offset="1440">
+        <state vertical-scroll-proportion="0.0" vertical-offset="527" max-vertical-offset="1440">
           <caret line="29" column="0" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
           <folding>
             <element signature="e#146#188#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Twig/Extension/ImageResizeExtension.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1860">
+          <caret line="61" column="0" selection-start-line="61" selection-start-column="0" selection-end-line="61" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Twig/Extension/UploaderExtension.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.76666665" vertical-offset="2040" max-vertical-offset="2940">
+          <caret line="91" column="0" selection-start-line="91" selection-start-column="0" selection-end-line="91" selection-end-column="0" />
+          <folding>
+            <element signature="e#6#98#0#PHP" expanded="true" />
+            <element signature="e#145#188#0#PHP" expanded="true" />
+            <marker date="1433421656310" expanded="true" signature="1806:1853" placeholder="..." />
+            <marker date="1433421656310" expanded="true" signature="1872:1916" placeholder="..." />
+            <marker date="1433421656310" expanded="true" signature="1958:2002" placeholder="..." />
           </folding>
         </state>
       </provider>

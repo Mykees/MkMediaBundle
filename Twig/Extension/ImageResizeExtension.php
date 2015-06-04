@@ -13,17 +13,14 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class ImageResizeExtension extends \Twig_Extension
 {
-    public $container;
+    public $rootDir;
 
-    public function __construct(ContainerInterface $container)
+    public function __construct($rootDir)
     {
-        $this->container = $container;
+        $this->rootDir = $rootDir;
     }
 
-    public function getService( $id )
-    {
-        return $this->container->get($id);
-    }
+
 
     public function getFunctions()
     {
@@ -43,7 +40,7 @@ class ImageResizeExtension extends \Twig_Extension
             $attr .= $k.'="'.$opt.'"';
         }
 
-        $webroot = $this->getService('kernel')->getRootDir().'/../web/';
+        $webroot = $this->rootDir.'/../web/';
         $info = pathinfo($image);
         $imageResize = $info['dirname'] . '/' . $info['filename'] . "_$width" . "x$height" . '.jpg';
         $fullPathImageResize = $webroot . $imageResize;
@@ -59,6 +56,6 @@ class ImageResizeExtension extends \Twig_Extension
 
     public function getName()
     {
-       return 'image_resize';
+        return 'image_resize';
     }
 }
