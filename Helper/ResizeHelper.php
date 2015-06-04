@@ -8,8 +8,8 @@
 
 namespace Mykees\MediaBundle\Helper;
 
+use Imagine\Gmagick\Imagine;
 use Imagine\Image\ImageInterface;
-use Imagine\Image\ImagineInterface;
 
 class ResizeHelper {
 
@@ -45,7 +45,7 @@ class ResizeHelper {
                 $mode = $this->options['mode'];
 
                 $imagine->open($absolute_info['dirname'] . '/' . $absolute_info['filename'] . '.jpg')
-                        ->thumbnail(new Box($width,$height), !empty($mode) && $mode == 'inset' ? ImageInterface::THUMBNAIL_INSET : ImageInterface::THUMBNAIL_OUTBOUND)
+                        ->thumbnail(new \Imagine\Image\Box($width,$height), !empty($mode) && $mode == 'inset' ? ImageInterface::THUMBNAIL_INSET : ImageInterface::THUMBNAIL_OUTBOUND)
                         ->save($dest);
             }
         }
