@@ -29,6 +29,6 @@ services:
 
     mk.media.listener:
         class: Mykees\MediaBundle\EventListener\MediasListener
-        arguments: ["@doctrine",'%kernel.root_dir%']
+        arguments: ["@doctrine",'%kernel.root_dir%','%mykees.media.resize%']
         tags:
             - { name: doctrine.event_listener, event: preRemove, method: preRemove }
