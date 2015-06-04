@@ -11,27 +11,30 @@ namespace Mykees\MediaBundle\EventListener;
 
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Mykees\MediaBundle\Interfaces\Mediable;
-use Symfony\Component\DependencyInjection\ContainerInterface;
+use Doctrine\Common\Persistence\ManagerRegistry;
+use Mykees\MediaBundle\Manager\MediaManager;
 
 class MediasListener
 {
+    public $managerRegistry;
+    public $rootDir;
+    public $resize_parameters;
 
-    public $container;
-    public $manager;
-    public $entity;
-
-    public function __construct(ContainerInterface $container)
+    public function __construct(ManagerRegistry $managerRegistry, $rootDir, $resize_parameters)
     {
-        $this->container = $container;
+        $this->managerRegistry = $managerRegistry;
+        $this->rootDir = $rootDir;
+        $this->resize_parameters = $resize_parameters;
     }
 
     public function preRemove(LifecycleEventArgs $args)
     {
         $model = $args->getEntity();
-        $this->manager = $this->container->get('mk.media.manager');
+
         if($model instanceof Mediable)
         {
-            $this->manager->removeAllMediasForModel($model);
+            $manager = new MediaManager($this->managerRegistry,$this->rootDir);
+            $manager->removeAllMediasForModel($model,$this->resize_parameters);
         }
     }
 
@@ -41,4 +44,4 @@ class MediasListener
             Events::preRemove
         ];
     }
-} 
+}

@@ -7,28 +7,28 @@ services:
 
     mk.media.event.upload_subscriber:
         class: Mykees\MediaBundle\EventListener\UploadSubscriber
-        arguments: ["@doctrine.orm.entity_manager","@service_container"]
+        arguments: ["@doctrine"]
         tags:
             - { name: kernel.event_subscriber }
 
     mk.media.manager:
         class: Mykees\MediaBundle\Manager\MediaManager
-        arguments: ["@doctrine.orm.entity_manager","@service_container"]
+        arguments: ["@doctrine",'%kernel.root_dir%','%mykees.media.resize%']
 
     mk.uploader.extension:
         class: Mykees\MediaBundle\Twig\Extension\UploaderExtension
-        arguments: ["@mk.media.manager","@service_container","@router"]
+        arguments: ["@mk.media.manager","@router"]
         tags:
             - { name: twig.extension, alias: mykees_uploader }
 
     mk.image.extension:
         class: Mykees\MediaBundle\Twig\Extension\ImageResizeExtension
-        arguments: ["@service_container"]
+        arguments: ['%kernel.root_dir%']
         tags:
             - { name: twig.extension, alias: image_resize }
 
     mk.media.listener:
         class: Mykees\MediaBundle\EventListener\MediasListener
-        arguments: ['@service_container']
+        arguments: ["@doctrine",'%kernel.root_dir%']
         tags:
             - { name: doctrine.event_listener, event: preRemove, method: preRemove }

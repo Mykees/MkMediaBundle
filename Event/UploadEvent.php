@@ -17,6 +17,8 @@ class UploadEvent extends Event {
     public $model;
     public $model_id;
     public $file;
+    public $container;
+    public $rootDir;
 
     /**
      * @return mixed
@@ -82,4 +84,23 @@ class UploadEvent extends Event {
         $this->file = $file;
     }
 
+    public function getContainer()
+    {
+        return $this->container;
+    }
+    public function setContainer($container)
+    {
+        $this->container = $container;
+    }
+
+
+    public function getRootDir()
+    {
+        return $this->rootDir;
+    }
+
+    public function setRootDir($rootDir)
+    {
+        $this->rootDir = $rootDir;
+    }
 }

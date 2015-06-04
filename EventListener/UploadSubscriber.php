@@ -9,9 +9,8 @@
 namespace Mykees\MediaBundle\EventListener;
 
 
-use Doctrine\ORM\EntityManager;
+use Doctrine\Common\Persistence\ManagerRegistry;
 use Mykees\MediaBundle\Helper\ResizeHelper;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Mykees\MediaBundle\Event\MediaUploadEvents;
 use Mykees\MediaBundle\Event\UploadEvent;
@@ -22,17 +21,10 @@ use Symfony\Component\HttpFoundation\Response;
 class UploadSubscriber implements EventSubscriberInterface {
 
     public $em;
-    public $container;
 
-    public function __construct(EntityManager $em, ContainerInterface $container)
+    public function __construct(ManagerRegistry $managerRegistry)
     {
-        $this->em = $em;
-        $this->container = $container;
-    }
-
-    public function getService( $id )
-    {
-        return $this->container->get($id);
+        $this->em = $managerRegistry->getManager();
     }
 
 
@@ -50,15 +42,15 @@ class UploadSubscriber implements EventSubscriberInterface {
         $fileUploaded = $file['file'];
         $model   = $event->getMediableModel();
         $model_id = $event->getMediableId();
-        $resize_option = $this->container->getParameter('mykees.media.resize');
+        $resize_option = $event->getContainer()->getParameter('mykees.media.resize');
         $extension = pathinfo($fileUploaded->getClientOriginalName(), PATHINFO_EXTENSION);
         $DS = DIRECTORY_SEPARATOR;
 
 
-        if( $this->isValidExtension($extension) )
+        if( $this->isValidExtension($extension,$event) )
         {
             //create dir
-            $webroot = $this->getService('kernel')->getRootDir().'/../web';
+            $webroot = $event->getRootDir().'/../web';
             $dir = $webroot.'/img';
 
             if(!file_exists($dir)){mkdir($dir,0777);}
@@ -105,9 +97,9 @@ class UploadSubscriber implements EventSubscriberInterface {
      * @param $extension
      * @return bool
      */
-    private function isValidExtension($extension)
+    private function isValidExtension($extension,$event)
     {
-        $extensions = $this->container->getParameter('mykees.media.extension');
+        $extensions = $event->getContainer()->getParameter('mykees.media.extension');
         $valid_extensions = !empty($extensions) ? $extensions : ['jpg','jpeg','JPG','JPEG'];
 
         return in_array($extension,$valid_extensions);
@@ -179,6 +171,4 @@ class UploadSubscriber implements EventSubscriberInterface {
 
         return $media;
     }
-
-
 }

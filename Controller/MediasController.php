@@ -30,8 +30,7 @@ class MediasController extends Controller
      */
     public function indexAction( $model, $bundle, $model_id, $editor )
     {
-        $manager = $this->get('mk.media.manager');
-        $medias  = $manager->findMediasByModelAndId($model, $model_id);
+        $medias  = $this->get('mk.media.manager')->findMediasByModelAndId($model, $model_id);
         $entity  = $this->getManage()->getRepository("$bundle:$model")->find($model_id);
         $mode    = $editor=='true' ? $editor : null ;
         $url = $editor == "true" ? ['model'=>$model,'bundle'=>$bundle,'model_id'=>$model_id,'mode'=>'true'] : ['model'=>$model,'bundle'=>$bundle,'model_id'=>$model_id];
@@ -67,24 +66,18 @@ class MediasController extends Controller
         $model_id = $request->get('model_id');
         $model    = $request->get('model');
         $bundle   = $request->get('bundle');
-        $mode   = $request->get('mode');
+        $mode     = $request->get('mode');
         if( $request->isXmlHttpRequest() && $file )
         {
             //Init Event
-            $event = new UploadEvent();
-            $event->setFile($file);
-            $event->setMediableModel($model);
-            $event->setMediableId($model_id);
-            //File upload process
-            $this->get("event_dispatcher")->dispatch(
-                MediaUploadEvents::UPLOAD_FILE, $event
-            );
+            $event = $this->initEvent($file,$model,$model_id);
+
             if($event->getMedia())
             {
                 $entity = $this->getManage()->getRepository("$bundle:$model")->find($model_id);
 
                 return $this->render('MykeesMediaBundle:Media:upload/upload_list.html.twig',[
-                        'media'=>$event->getMedia(),'model'=>$model,'entity'=>$entity,'bundle'=>$bundle,'model_id'=>$model_id,'mode'=>$mode
+                    'media'=>$event->getMedia(),'model'=>$model,'entity'=>$entity,'bundle'=>$bundle,'model_id'=>$model_id,'mode'=>$mode
                 ]);
             }else{
                 $response = new Response();
@@ -96,6 +89,20 @@ class MediasController extends Controller
                 return $response;
             }
         }
+    }
+
+    public function initEvent($file,$model,$model_id)
+    {
+        $event = new UploadEvent();
+        $event->setFile($file);
+        $event->setMediableModel($model);
+        $event->setMediableId($model_id);
+        $event->setContainer($this->container);
+        $event->setRootDir($this->get('kernel')->getRootDir());
+        //File upload process
+        $this->get("event_dispatcher")->dispatch(MediaUploadEvents::UPLOAD_FILE, $event);
+
+        return $event;
     }
 
     /**
@@ -167,22 +174,22 @@ class MediasController extends Controller
      */
     public function deleteAction( $model, $bundle, $id, Request $request )
     {
-       if( $id )
-       {
-           $media = $this->getManage()->getRepository('MykeesMediaBundle:Media')->find($id);
-           $media_manager = $this->get('mk.media.manager');
-           $media_manager->unlink($model,$media);
+        if( $id )
+        {
+            $media = $this->getManage()->getRepository('MykeesMediaBundle:Media')->find($id);
+            $media_manager = $this->get('mk.media.manager');
+            $media_manager->unlink($model,$media);
 
-           $modelReferer = $this->getManage()->getRepository("$bundle:$model")->find($media->getMediableId());
-           if(method_exists($modelReferer,'getThumb') && $modelReferer->getThumb()->getId() == $media->getId())
-           {
-               $modelReferer->setThumb(null);
-           }
+            $modelReferer = $this->getManage()->getRepository("$bundle:$model")->find($media->getMediableId());
+            if(method_exists($modelReferer,'getThumb') && $modelReferer->getThumb()->getId() == $media->getId())
+            {
+                $modelReferer->setThumb(null);
+            }
 
-           $media_manager->remove($media);
-       }
+            $media_manager->remove($media);
+        }
 
-       return new Response();
+        return new Response();
     }
 
     /**

@@ -8,32 +8,29 @@
 
 namespace Mykees\MediaBundle\Manager;
 
-use Doctrine\ORM\EntityManager;
+use Doctrine\Common\Persistence\ManagerRegistry;
 use Mykees\MediaBundle\Entity\Media;
 use Mykees\MediaBundle\Interfaces\Mediable;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 use Mykees\MediaBundle\Util\Reflection;
 
 class MediaManager extends AbstractManager
 {
 
     public $em;
-    public $container;
+    public $rootDir;
+    public $resize_parameters;
 
-    public function __construct( EntityManager $entityManager, ContainerInterface $container )
+    public function __construct( ManagerRegistry $managerRegistry, $rootDir,$resize_parameters )
     {
-        $this->em = $entityManager;
-        $this->container = $container;
+        $this->em = $managerRegistry->getManager();
+        $this->rootDir = $rootDir;
+        $this->resize_parameters = $resize_parameters;
     }
 
-    public function getService( $id )
-    {
-        return $this->container->get($id);
-    }
 
     public function webroot()
     {
-        return $this->getService('kernel')->getRootDir().'/../web/img/';
+        return $this->rootDir . '/../web/img/';
     }
 
     /**
@@ -114,25 +111,9 @@ class MediaManager extends AbstractManager
 
     public function unlink($model, Media $media)
     {
-        $resize_option = $this->container->getParameter('mykees.media.resize');
         $info  = pathinfo($media->getFile());
 
-        if(!empty($resize_option[$model]['size']))
-        {
-            $sizes = $resize_option[$model]['size'];
-
-            foreach($sizes as $k=>$size)
-            {
-                $w = $size['width'];
-                $h = $size['height'];
-                $resizedFile = $this->webroot() . $info['dirname'] . '/' . $info['filename'] . "_$w" . "x$h" . '.jpg';
-
-                if(file_exists($resizedFile))
-                {
-                    unlink($resizedFile);
-                }
-            }
-        }
+        $this->removeSizes($model,$info);
 
         if(file_exists($this->webroot() . $media->getFile()))
         {
@@ -140,6 +121,29 @@ class MediaManager extends AbstractManager
         }
 
         return false;
+    }
+
+    public function removeSizes($model,$info)
+    {
+        if(!empty($this->resize_parameters[$model]))
+        {
+            if(!empty($this->resize_parameters[$model]['size']))
+            {
+                $sizes = $this->resize_parameters[$model]['size'];
+
+                foreach($sizes as $k=>$size)
+                {
+                    $w = $size['width'];
+                    $h = $size['height'];
+                    $resizedFile = $this->webroot() . $info['dirname'] . '/' . $info['filename'] . "_$w" . "x$h" . '.jpg';
+
+                    if(file_exists($resizedFile))
+                    {
+                        unlink($resizedFile);
+                    }
+                }
+            }
+        }
     }
 
     public function remove(Media $media)
@@ -172,8 +176,6 @@ class MediaManager extends AbstractManager
     /**
      * Remodel ALL Medias
      */
-    public function removeAll()
-    {
+    public function removeAll(){}
 
-    }
-} 
+}
