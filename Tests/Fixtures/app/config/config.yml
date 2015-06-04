@@ -58,6 +58,8 @@ doctrine:
         auto_generate_proxy_classes: "%kernel.debug%"
         auto_mapping: true
 
+mykees_comment:
+    comment_class: Mvc\BlogBundle\Entity\Comment
 
 mykees_media:
     allowExtension: ['jpg']

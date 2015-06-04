@@ -21,6 +21,7 @@ class AppKernel extends Kernel
 
             new Mvc\BlogBundle\MvcBlogBundle(),
             new Mykees\MediaBundle\MykeesMediaBundle(),
+            new Mykees\CommentBundle\MykeesCommentBundle(),
             new Liip\FunctionalTestBundle\LiipFunctionalTestBundle(),
         );
 
