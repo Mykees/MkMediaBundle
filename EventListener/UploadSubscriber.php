@@ -38,17 +38,16 @@ class UploadSubscriber implements EventSubscriberInterface {
 
     public function uploadProcess( UploadEvent $event )
     {
-        $params = [
-            'file'=>$event->getFile()->all(),
-            'model'=>$event->getMediableModel(),
-            'model_id'=>$event->getMediableId(),
-            'resize_option'=>$event->getContainer()->getParameter('mykees.media.resize'),
-            'DS'=>'DIRECTORY_SEPARATOR'
-        ];
-        $params['fileUpload'] = $params['file']['file'];
-        $params['extension'] = pathinfo($params['fileUpload']->getClientOriginalName(),PATHINFO_EXTENSION);
+        $file  = $event->getFile()->all();
+        $fileUploaded = $file['file'];
+        $model   = $event->getMediableModel();
+        $model_id = $event->getMediableId();
+        $resize_option = $event->getContainer()->getParameter('mykees.media.resize');
+        $extension = pathinfo($fileUploaded->getClientOriginalName(), PATHINFO_EXTENSION);
+        $DS = DIRECTORY_SEPARATOR;
 
-        if( $this->isValidExtension($params['extension'],$event) )
+
+        if( $this->isValidExtension($extension,$event) )
         {
             //create dir
             $webroot = $event->getRootDir().'/../web';
@@ -56,29 +55,29 @@ class UploadSubscriber implements EventSubscriberInterface {
 
             if(!file_exists($dir)){mkdir($dir,0777);}
 
-            $dir .= $params['DS'].date('Y');
+            $dir .= $DS.date('Y');
             if(!file_exists($dir)){mkdir($dir,0777);}
 
-            $dir .= $params['DS'].date('m');
+            $dir .= $DS.date('m');
             if(!file_exists($dir)){mkdir($dir,0777);}
 
             //clean and define path filename
-            $filename = $this->cleanFilename( $params['fileUpload']->getClientOriginalName(), $params['extension'], $webroot );
+            $filename = $this->cleanFilename( $fileUploaded->getClientOriginalName(), $extension, $webroot );
             //test duplicate
             $name = $this->mediaExist( $filename,$webroot );
 
             $filePath = date('Y').'/'.date('m').'/'.$name;
-            $save_media = $this->saveMedia($filePath, $name, $params['model'], $params['model_id']);
+            $save_media = $this->saveMedia($filePath, $name, $model, $model_id);
 
             if($save_media)
             {
                 //upload
-                $params['fileUpload']->move($dir,$name);
+                $fileUploaded->move($dir,$name);
                 $event->setMedia($save_media);
 
-                if(!empty($params['resize_option'][$params['model']]))
+                if(!empty($resize_option[$model]))
                 {
-                    $resize = new ResizeHelper($params['resize_option'][$params['model']], $webroot);
+                    $resize = new ResizeHelper($resize_option[$model], $webroot);
                     $resize->resize($save_media->getFile());
                 }
 
@@ -173,4 +172,6 @@ class UploadSubscriber implements EventSubscriberInterface {
 
         return $media;
     }
+
+
 }
