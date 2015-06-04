@@ -27,7 +27,6 @@ class MediasListener
         $this->resize_parameters = $resize_parameters;
     }
 
-
     public function preRemove(LifecycleEventArgs $args)
     {
         $model = $args->getEntity();
