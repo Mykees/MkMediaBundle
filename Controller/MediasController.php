@@ -109,7 +109,7 @@ class MediasController extends Controller
         return $event;
     }
 
-    public function setEvent($event,$file,$model,$model_id)
+    private function setEvent($event,$file,$model,$model_id)
     {
         $event->setFile($file);
         $event->setMediableModel($model);
