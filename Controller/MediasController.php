@@ -28,27 +28,29 @@ class MediasController extends Controller
      */
     public function indexAction( $model, $bundle, $model_id, $editor )
     {
-        $medias  = $this->get('mk.media.manager')->findMediasByModelAndId($model, $model_id);
-        $entity  = $this->getManage()->getRepository("$bundle:$model")->find($model_id);
-        $mode    = $editor=='true' ? $editor : null ;
-        $url = $editor == "true" ? ['model'=>$model,'bundle'=>$bundle,'model_id'=>$model_id,'mode'=>'true'] : ['model'=>$model,'bundle'=>$bundle,'model_id'=>$model_id];
+        $params = [
+            'medias'=>$this->get('mk.media.manager')->findMediasByModelAndId($model, $model_id),
+            'entity'=>$this->getManage()->getRepository("$bundle:$model")->find($model_id),
+            'mode'=>$editor=='true' ? $editor : null,
+            'url'=>$editor == "true" ? ['model'=>$model,'bundle'=>$bundle,'model_id'=>$model_id,'mode'=>'true'] : ['model'=>$model,'bundle'=>$bundle,'model_id'=>$model_id]
+        ];
         $form = $this->createForm(
             new MediaType(),
             new Media,
             [
-                'action' => $this->generateUrl('mykees_media_add',$url),
+                'action' => $this->generateUrl('mykees_media_add',$params['url']),
                 'method' => 'POST',
             ]
         );
 
         return $this->render('MykeesMediaBundle:Media:index.html.twig',[
             'form'=>$form->createView(),
-            'medias'=> $medias,
-            'entity'=>$entity,
+            'medias'=> $params['medias'],
+            'entity'=>$params['entity'],
             'model'=>$model,
             'bundle'=> $bundle,
             'model_id'=> $model_id,
-            "mode"=> $mode
+            "mode"=> $params['mode']
         ]);
     }
 
