@@ -140,18 +140,24 @@ class MediasController extends Controller
      */
     public function showAction( $model=null, $id = null, Request $request )
     {
+        $params = [];
+
         if( !$id )
         {
-            $class = $request->get('class');
-            $alt = $request->get('alt');
-            $media = $this->getManage()->getRepository('MykeesMediaBundle:Media')->findOneBy(['name'=>$alt,'model'=>$model]);
+            $params = [
+                'class'=>$request->get('class'),
+                'alt'=>$request->get('alt')
+            ];
+            $params['media'] = $this->getManage()->getRepository('MykeesMediaBundle:Media')->findOneBy(['name'=>$params['alt'],'model'=>$model]);
         }else{
-            $media = $this->getManage()->getRepository('MykeesMediaBundle:Media')->find($id);
-            $class=null;
+            $params = [
+                'media'=>$this->getManage()->getRepository('MykeesMediaBundle:Media')->find($id),
+                'class'=>null
+            ];
         }
         $form = $this->createForm(
             new MediaShowType(),
-            $media,
+            $params['media'],
             [
                 'action' => $this->generateUrl('mykees_media_show',['model'=>$model,'id'=>$id]),
                 'method' => 'POST',
@@ -164,7 +170,7 @@ class MediasController extends Controller
         }
 
         return $this->render('MykeesMediaBundle:Media:show/show.html.twig',[
-            'media'=>$media,'form'=>$form->createView(),'class'=>$class,"model"=>$model
+            'media'=>$params['media'],'form'=>$form->createView(),'class'=>$params['class'],"model"=>$model
         ]);
     }
 
@@ -174,10 +180,9 @@ class MediasController extends Controller
      * @param $model
      * @param $bundle
      * @param $id
-     * @param Request $request
      * @return Response
      */
-    public function deleteAction( $model, $bundle, $id, Request $request )
+    public function deleteAction( $model, $bundle, $id )
     {
         if( $id )
         {
@@ -185,10 +190,10 @@ class MediasController extends Controller
             $media_manager = $this->get('mk.media.manager');
             $media_manager->unlink($model,$media);
 
-            $modelReferer = $this->getManage()->getRepository("$bundle:$model")->find($media->getMediableId());
-            if(method_exists($modelReferer,'getThumb') && $modelReferer->getThumb()->getId() == $media->getId())
+            $model_referer = $this->getManage()->getRepository("$bundle:$model")->find($media->getMediableId());
+            if(method_exists($model_referer,'getThumb') && $model_referer->getThumb()->getId() == $media->getId())
             {
-                $modelReferer->setThumb(null);
+                $model_referer->setThumb(null);
             }
 
             $media_manager->remove($media);
