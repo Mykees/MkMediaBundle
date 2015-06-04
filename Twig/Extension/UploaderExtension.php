@@ -84,7 +84,6 @@ class UploaderExtension extends \Twig_Extension
         ]);
     }
 
-
     public function getName()
     {
         return "mykees_uploader";
