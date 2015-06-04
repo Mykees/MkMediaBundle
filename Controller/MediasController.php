@@ -45,12 +45,10 @@ class MediasController extends Controller
 
         return $this->render('MykeesMediaBundle:Media:index.html.twig',[
             'form'=>$form->createView(),
-            'medias'=> $params['medias'],
-            'entity'=>$params['entity'],
             'model'=>$model,
             'bundle'=> $bundle,
             'model_id'=> $model_id,
-            "mode"=> $params['mode']
+            'params'=>$params
         ]);
     }
 
@@ -77,15 +75,11 @@ class MediasController extends Controller
 
             if($event->getMedia())
             {
-                $entity = $this->getManage()->getRepository("{$requestArray['bundle']}:{$requestArray['model']}")->find($requestArray['model_id']);
+                $requestArray['entity'] = $this->getManage()->getRepository("{$requestArray['bundle']}:{$requestArray['model']}")->find($requestArray['model_id']);
+                $requestArray['media'] = $event->getMedia();
 
                 return $this->render('MykeesMediaBundle:Media:upload/upload_list.html.twig',[
-                    'media'=>$event->getMedia(),
-                    'model'=>$requestArray['model'],
-                    'entity'=>$entity,
-                    'bundle'=>$requestArray['bundle'],
-                    'model_id'=>$requestArray['model_id'],
-                    'mode'=>$requestArray['mode']
+                    'params'=>$requestArray
                 ]);
             }else{
                 $response = new Response();
@@ -101,23 +95,21 @@ class MediasController extends Controller
 
     private function initEvent($file,$model,$model_id)
     {
-        $init_event = new UploadEvent();
-        $event = $this->setEvent($init_event,$file,$model,$model_id);
+        $event = new UploadEvent();
+        $event->setFile($file);
+        $event->setMediableModel($model);
+        $event->setMediableId($model_id);
+        $event->setContainer($this->container);
+        $event->setRootDir($this->get('kernel')->getRootDir());
         //File upload process
         $this->get("event_dispatcher")->dispatch(MediaUploadEvents::UPLOAD_FILE, $event);
 
         return $event;
     }
 
-    private function setEvent($event,$file,$model,$model_id)
+    private function configEvent($event)
     {
-        $event->setFile($file);
-        $event->setMediableModel($model);
-        $event->setMediableId($model_id);
-        $event->setContainer($this->container);
-        $event->setRootDir($this->get('kernel')->getRootDir());
 
-        return $event;
     }
 
     /**

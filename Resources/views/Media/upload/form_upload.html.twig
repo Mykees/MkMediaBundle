@@ -24,7 +24,7 @@
                     </tr>
                 </thead>
                 <tbody id="medias-list" class="medias-list">
-                    {% for media in medias %}
+                    {% for media in params.medias %}
                         {% include "MykeesMediaBundle:Media:upload/upload_list.html.twig" %}
                     {% endfor %}
                 </tbody>
