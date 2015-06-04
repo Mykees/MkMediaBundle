@@ -12,4 +12,4 @@ namespace Mykees\MediaBundle\Interfaces;
 Interface Mediable{
 
     public function getId();
-} 
+}

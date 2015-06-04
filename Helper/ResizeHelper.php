@@ -8,7 +8,6 @@
 
 namespace Mykees\MediaBundle\Helper;
 
-use Imagine\Gmagick\Imagine;
 use Imagine\Image\ImageInterface;
 
 class ResizeHelper {

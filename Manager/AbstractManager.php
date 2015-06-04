@@ -80,4 +80,4 @@ abstract class AbstractManager {
             $model->getMedias()->clear();
         }
     }
-} 
+}
