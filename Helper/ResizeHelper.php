@@ -31,7 +31,9 @@ class ResizeHelper {
         {
             foreach($this->options['size'] as $k=>$v)
             {
-                $dest = $absolute_info['dirname'] . '/' . $absolute_info['filename'] . "_{$v['width']}" . "x{$v['height']}" . '.jpg';
+                $width = $v['width'];
+                $height = $v['height'];
+                $dest = $absolute_info['dirname'] . '/' . $absolute_info['filename'] . "_$width" . "x$height" . '.jpg';
 
                 if(file_exists($dest))
                 {

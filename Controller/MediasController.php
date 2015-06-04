@@ -61,25 +61,29 @@ class MediasController extends Controller
     public function addAction( Request $request )
     {
         $requestArray = [
-            'model_id'=>$request->get('model_id'),
-            'model'=>$request->get('model'),
             'file'=>$request->files,
-            'bundle'=>$request->get('bundle'),
             'mode'=>$request->get('mode')
         ];
+        $model = $request->get('model');
+        $bundle = $request->get('bundle');
+        $model_id = $request->get('model_id');
 
         if( $request->isXmlHttpRequest() && $requestArray['file'] )
         {
             //Init Event
-            $event = $this->initEvent($requestArray['file'],$requestArray['model'],$requestArray['model_id']);
+            $event = $this->initEvent($requestArray['file'],$model,$model_id);
 
             if($event->getMedia())
             {
-                $requestArray['entity'] = $this->getManage()->getRepository("{$requestArray['bundle']}:{$requestArray['model']}")->find($requestArray['model_id']);
-                $requestArray['media'] = $event->getMedia();
+                $requestArray['entity'] = $this->getManage()->getRepository("$bundle:$model")->find($model_id);
+
 
                 return $this->render('MykeesMediaBundle:Media:upload/upload_list.html.twig',[
-                    'params'=>$requestArray
+                    'params'=>$requestArray,
+                    'media'=>$event->getMedia(),
+                    'model'=>$model,
+                    'bundle'=>$bundle,
+                    'model_id'=>$model_id
                 ]);
             }else{
                 $response = new Response();

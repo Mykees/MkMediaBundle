@@ -69,14 +69,14 @@ class MediasControllerTest extends WebTestCase
         );
         $this->client->request(
             'POST',
-            '/admin/medias/add/Post/MvcBlogBundle/12',
+            '/admin/medias/add/Post/MvcBlogBundle/13',
             ['name'=>'Elly'],
             ['file'=>$file],
             ['HTTP_X-Requested-With' => 'XMLHttpRequest']
         );
 
         $this->assertEquals(200,$this->client->getResponse()->getStatusCode());
-        $medias  = $this->manager->findMediasByModelAndId('Post',12);
+        $medias  = $this->manager->findMediasByModelAndId('Post',13);
 
         $this->assertEquals(1, count($medias));
 
@@ -93,7 +93,7 @@ class MediasControllerTest extends WebTestCase
         );
         $this->client->request(
             'POST',
-            '/admin/medias/add/Post/MvcBlogBundle/15',
+            '/admin/medias/add/Post/MvcBlogBundle/17',
             ['name'=>'thumb'],
             ['file'=>$file],
             ['HTTP_X-Requested-With' => 'XMLHttpRequest']
@@ -102,7 +102,7 @@ class MediasControllerTest extends WebTestCase
         $this->assertEquals(500,$this->client->getResponse()->getStatusCode());
 
         $this->manager = $this->container->get('mk.media.manager');
-        $medias  = $this->manager->findMediasByModelAndId('Post',15);
+        $medias  = $this->manager->findMediasByModelAndId('Post',17);
         $this->assertEquals(0, count($medias));
     }
 
