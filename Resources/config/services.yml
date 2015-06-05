@@ -17,7 +17,7 @@ services:
 
     mk.uploader.extension:
         class: Mykees\MediaBundle\Twig\Extension\UploaderExtension
-        arguments: ["@mk.media.manager","@router"]
+        arguments: ["@router"]
         tags:
             - { name: twig.extension, alias: mykees_uploader }
 

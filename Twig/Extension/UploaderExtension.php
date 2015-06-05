@@ -8,21 +8,16 @@
 
 namespace Mykees\MediaBundle\Twig\Extension;
 use Mykees\MediaBundle\Interfaces\Mediable;
-use Mykees\MediaBundle\Manager\MediaManager;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Mykees\MediaBundle\Util\Reflection;
 
 class UploaderExtension extends \Twig_Extension
 {
 
-
-    public $container;
     public $generator;
 
-
-    public function __construct(MediaManager $manager,UrlGeneratorInterface $generator )
+    public function __construct(UrlGeneratorInterface $generator )
     {
-        $this->manager = $manager;
         $this->generator = $generator;
     }
 
@@ -31,8 +26,7 @@ class UploaderExtension extends \Twig_Extension
     {
         return [
             new \Twig_SimpleFunction('iframe_uploader', [$this, 'iframeUploader'], [
-                'is_safe'=>array('html'),
-                'needs_environment'=>true
+                'is_safe'=>array('html')
             ]),
             new \Twig_SimpleFunction('editor_uploader', [$this, 'wysiwygUploader'], [
                 'is_safe'=>array('html'),
@@ -46,7 +40,7 @@ class UploaderExtension extends \Twig_Extension
      * @param $entity
      * @return string
      */
-    public function iframeUploader( \Twig_Environment $env, Mediable $entity )
+    public function iframeUploader(Mediable $entity )
     {
         $model    = Reflection::getClassShortName($entity);
         $model_id = $entity->getId();

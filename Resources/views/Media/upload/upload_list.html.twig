@@ -16,19 +16,33 @@
     <td class="middle">
 
         {% if params.mode is defined and params.mode == 'true' %}
-            <a href="{{ path('mykees_media_show',{ 'model':model,'id':media.id }) }}" class="btn btn-sm btn-default">
-                <i class="glyphicon glyphicon-picture"></i>&nbsp;&nbsp;{{ 'file_insert'|trans }}
-            </a>
-            &nbsp;&nbsp;
+            {% if ext[1] in imageExtension %}
+                <a href="{{ path('mykees_media_show',{ 'model':model,'id':media.id }) }}" class="btn btn-sm btn-default">
+                    <i class="glyphicon glyphicon-picture"></i>&nbsp;&nbsp;{{ 'file_insert'|trans }}
+                </a>
+                &nbsp;&nbsp;
+            {% else %}
+                <a href="{{ path('mykees_media_show',{ 'model':model,'id':media.id }) }}" class="btn btn-sm btn-default">
+                    <i class="glyphicon glyphicon-pushpin"></i>&nbsp;&nbsp;{{ 'insert_link'|trans }}
+                </a>
+            {% endif %}
         {% endif %}
 
         {% if params.entity.thumb is defined %}
+
             {% if params.entity.thumb is null or params.entity.thumb.id != media.id %}
-                <a href="{{ path('mykees_media_thumb',{'model':model,'bundle':bundle,'model_id':model_id,'id':media.id }) }}" class="btn btn-sm btn-default">
-                    <i class="glyphicon glyphicon-paperclip"></i>&nbsp;&nbsp;{{ 'featured_image'|trans }}
-                </a>
+                {% if ext[1] in imageExtension %}
+                    <a href="{{ path('mykees_media_thumb',{'model':model,'bundle':bundle,'model_id':model_id,'id':media.id }) }}" class="btn btn-sm btn-default">
+                        <i class="glyphicon glyphicon-paperclip"></i>&nbsp;&nbsp;{{ 'featured_image'|trans }}
+                    </a>
+                {% else %}
+                    <a href="#" data-clipboard-text="{{ asset('img/'~media.file) }}" class="btn btn-sm btn-default document_link">
+                        <i class="glyphicon glyphicon-copy" style="font-size:15px;"></i>&nbsp;&nbsp;<span>{{ "copy_link"|trans }}</span>
+                    </a>
+                {% endif %}
                 &nbsp;&nbsp;
             {% endif %}
+
         {% endif %}
 
         <a href="{{ path('mykees_media_delete',{'model':model, 'bundle':bundle, 'id':media.id} ) }}" class="btn btn-sm btn-danger delete_btn">

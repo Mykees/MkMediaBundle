@@ -9,3 +9,5 @@ file_path: Path
 file_actions: Actions
 
 file_search: SEARCH A MEDIA...
+insert_link: Insert link
+copy_link: Copy link

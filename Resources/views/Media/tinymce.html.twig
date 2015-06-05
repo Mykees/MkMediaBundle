@@ -2,7 +2,16 @@
 <script src="{{ asset('bundles/mykeesmedia/js/tinymce/tinymce.min.js') }}" type="text/javascript"></script>
 <script type="text/javascript">
     var win = (!window.frameElement && window.dialogArguments) || opener || parent || top;
-    var html = '<img src="{{ asset('img/'~media['mykees_mediabundle_show']['file']) }}" alt="{{ media['mykees_mediabundle_show']['name'] }}" class="{{ media['align'] }}">'
+    {% set ext = media['mykees_mediabundle_show']['file']|split('.') %}
+    {% set imageExtension = ['jpg','JPG','jpeg',"JPEG",'png','PNG','gif','GIF'] %}
+
+    {% if ext[1] in imageExtension %}
+    var html = '<img src="{{ asset('img/'~media['mykees_mediabundle_show']['file']) }}" alt="{{ media['mykees_mediabundle_show']['name'] }}" class="{{ media['align'] }}">';
+    {% else %}
+    var html = '<a href="{{ asset('img/'~media['mykees_mediabundle_show']['file']) }}" target="_blank" class="mk_doc_{{ media['mykees_mediabundle_show']['name'] }}">{{ media['mykees_mediabundle_show']['name'] }}</a>'
+    {% endif %}
+
     win.send_to_editor(html);
     win.tinymce.activeEditor.windowManager.close();
+
 </script>

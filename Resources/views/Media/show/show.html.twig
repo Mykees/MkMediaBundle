@@ -7,7 +7,19 @@
             </div>
 
             <div class="row" id="wrapper-row">
-                <div class="col-md-6"><img src="{{ asset('img/'~media.file) }}" alt="media..name" style="width:400px;"/></div>
+                <div class="col-md-6">
+                    {% set ext = media.file|split('.') %}
+                    {% set imageExtension = ['jpg','JPG','jpeg',"JPEG",'png','PNG','gif','GIF'] %}
+
+                    {% if ext[1] in imageExtension %}
+                        <img src="{{ asset('img/'~media.file) }}" alt="" style="width:400px;"/>
+                    {% elseif ext[1] == "pdf" %}
+                        <img src="{{ asset('bundles/mykeesmedia/images/pdf.jpg') }}" alt="" style="width:200px;">
+                    {% elseif ext[1] == "txt" %}
+                        <img src="{{ asset('bundles/mykeesmedia/images/txt.jpg') }}" alt="" style="width:200px;">
+                    {% endif %}
+
+                </div>
                 <div class="col-md-6">
 
                     {{ form_start(form) }}
