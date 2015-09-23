@@ -1,149 +1,430 @@
-<!doctype html>
-<html class="no-js" lang="">
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Symfony2 Media Bundle by Mykees</title>
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="css/app.css">
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,800,300|Karla:400,400italic,700' rel='stylesheet' type='text/css'>
-    <link href='http://fonts.googleapis.com/css?family=Source+Code+Pro:500' rel='stylesheet' type='text/css'>
-</head>
-<body>
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>Documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
 
+        <!-- <link rel="apple-touch-icon" href="apple-touch-icon.png"> -->
+        <!-- Place favicon.ico in the root directory -->
 
-<div class="page">
+        <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link rel="stylesheet" href="assets/css/materialize.min.css">
+        <link rel="stylesheet" href="assets/css/app.css">
+    </head>
+    <body>
 
-    <div class="header header--media">
-        <div class="header__container">
-            <h1>Symfony2 <span>MediaBundle</span></h1>
-        </div>
-    </div>
-
-    <div class="content">
-
-        <div class="content_container">
-            <div class="nav">
-                <a class="nav__link nav__link--current" href="http://Mykees.github.io/MkMediaBundle/index.html">Présentation</a>
-                <a class="nav__link" href="http://Mykees.github.io/MkMediaBundle/configuration.html">Configuration</a>
-                <a class="nav__link" href="http://Mykees.github.io/MkMediaBundle/uploader.html">Uploader</a>
-                <a class="nav__link" href="http://Mykees.github.io/MkMediaBundle/usage.html">Usage</a>
-                <a class="nav__link" href="http://Mykees.github.io/MkMediaBundle/options.html">Options</a>
-                <a class="nav__link" href="http://Mykees.github.io/MkMediaBundle/infos.html">More infos</a>
+      <div class="navbar-fixed">
+          <nav class="light-blue darken-2">
+            <div class="container">
+                <div class="nav-wrapper">
+                  <a href="http://mykees.github.io/MkMediaBundle/" class="brand-logo"><img src="assets/images/mediabundle-logo.png" alt=""></a>
+                  <a href="#" data-activates="mobile-demo" class="button-collapse">
+                    <i class="material-icons">menu</i>
+                  </a>
+                  <ul class="right hide-on-med-and-down">
+                    <li><a href="#modal-contact" class="modal-trigger"><i class="material-icons dp48 left">email</i> Contact</a></li>
+                    <li><a href="#modal-bundles" class="modal-trigger"><i class="material-icons dp48 left">view_module</i> Other Bundles</a></li>
+                  </ul>
+                  <ul class="side-nav" id="mobile-demo">
+                    <li><a href="#modal-contact" class="modal-trigger"><i class="material-icons dp48 left">email</i> Contact</a></li>
+                    <li><a href="#modal-bundles" class="modal-trigger"><i class="material-icons dp48 left">view_module</i> Other Bundles</a></li>
+                  </ul>
+                </div>
             </div>
+          </nav>
+      </div>
 
-            <div class="content__text">
 
-                <div class="content__description">
-                    
-                    
-                    <div class="txtcenter">
-                        <img src="img/uploader.jpg" alt="Symfony2 Media Bundle"/>
+      <header class="header" id="header">
+        <div class="row">
+            <div class="col s12 m12 l12 doc-title center blue-grey-text text-lighten-5">Documentation</div>
+            <h1 class="col s12 m12 l12 main-title center blue-grey-text text-lighten-5">
+            MkMediaBundle
+            </h1>
+            <div class="col s12 m12 l12 for-sf2 center blue-grey-text text-lighten-5">A bundle media system for Symfony2</div>
+        </div>
+      </header>
+
+
+        <div class="container container-wrapper">
+            <div class="row">
+
+              <aside class="col s12 m4 l3" id="aside">
+                <div class="collection" id="sticky">
+                    <a class="collection-item" href="#introducing">Introducing</a>
+                    <a class="collection-item" href="#configuration">Configuration</a>
+                    <a class="collection-item" href="#uploader">Uploader</a>
+                    <a class="collection-item" href="#usage">Usage</a>
+                    <a class="collection-item" href="#options">Options</a>
+                </div>
+              </aside>
+
+              <div class="col s12 m8 l9 content">
+
+                    <div class="wrapper-section" id="introducing">
+                        <h3 class="title-section">
+                        <small><a href="#introducing"><i class="red-text material-icons small dp48">format_textdirection_l_to_r</i></a></small> Introducing
+                        </h3>
+
+
+                        <p>
+                            The goal of this bundle is to allow you to associate media with several entities, and manage them.
+                        </p>
+                        <div class="image">
+                            <p class="center">
+                                <img src="assets/images/uploader.jpg" alt="uploader">
+                            </p>
+                        </div>
+                        <div class="sub-wrapper functionalities">
+                            <span class="subtitle">Features :</span>
+                            <ul>
+                                <li>
+                                    Very easy to initialize and configure. Add your media and retrieves them very simply.
+                                </li>
+                            </ul>
+                            <ul>
+                                <li>
+                                    Use a drag and drop system by Dropzone.js.
+                                </li>
+                            </ul>
+                            <ul>
+                                <li>
+                                    Add an iframe uploader or if you have write articles by example, you can add a wysiwyg(<a href="http://www.tinymce.com/">Tinymce</a>) which integrates a media uploader.
+                                </li>
+                            </ul>
+                            <ul>
+                                <li>
+                                    This MediaBundle integrates a Resize media system. You can configure different size for your images. The bundle use <a href="http://imagine.readthedocs.org/en/latest/usage/introduction.html">Imagine</a> library.
+                                </li>
+                            </ul>
+                        </div>
+
                     </div>
 
-                    
-                    <p>
-                        The goal of this bundle is to allow you to associate media with several entities
-                    </p>
-                </div>
+                    <div class="wrapper-section" id="configuration">
+                        <h3 class="title-section">
+                        <small><a href="#configuration"><i class="red-text material-icons small dp48">format_textdirection_l_to_r</i></a></small> Configuration
+                        </h3>
 
-                <h2>Functionality :</h2>
+<!-- =INSTALL -->
+<div class="sub-title"><span class="subtitle bold">Install :</span></div>
+<p>
+    Add package to your composer.json :
+</p>
+<pre><code class="hljs bash"><span class="hljs-string">"require"</span>: {
+    <span class="hljs-string">"mykees/symfony2-media-bundle"</span>: <span class="hljs-string">"1.0.*@dev"</span>
+}</code></pre>
 
-                <ul>
-                    <li>
-                        <strong>Easy to use and configure</strong>
-                        <ul>
-                            <li class="no-list">
-                                <p>
-                                    This MediaBundle is very easy to initialize and configure. Add your media and retrieves them very simply without so much code.
-                                </p>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
+<p>
+    Add this bundle to your application's kernel :
+</p>
+<pre><code class="hljs php">$bundles = array(
+        <span class="hljs-keyword">...</span>
+        new Mykees\MediaBundle\MykeesMediaBundle(),
+);</code></pre>
 
-
-                <ul>
-                    <li>
-                        <strong>Drag and Drop System</strong>
-                        <ul>
-                            <li class="no-list">
-                                <p>
-                                    This MediaBundle use a drag and drop system by <a href="http://www.dropzonejs.com/">Dropzone.js</a>. It's very easy to add one or multiples media for your content
-                                </p>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-
-                <ul>
-                    <li>
-                        <strong>WYSIWYG or Iframe</strong>
-                        <ul>
-                            <li class="no-list">
-                                <p>
-                                    To add media on your content, you can add an iframe uploader or if you have write articles by example, you can add a wysiwyg(<a href="http://www.tinymce.com/">Tinymce</a>) wich integrates a media uploader.
-                                </p>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-
-                <ul>
-                    <li>
-                        <strong>Resize your media</strong>
-                        <ul>
-                            <li class="no-list">
-                                <p>
-                                    This MediaBundle integrates a Resize media system. You can configure very easily different size for your images.
-                                    The bundle use <a href="http://imagine.readthedocs.org/en/latest/usage/introduction.html">Imagine</a> library.
-                                </p>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-
-                <p>&nbsp;</p>
-
-                <p><strong>TODO :</strong></p>
-                <ul>
-                    <li>Configure upload folder destination</li>
-                    <li>More features coming soon...</li>
-                </ul>
+<p>
+    Add routing in app/config/routing.yml :
+</p>
+<pre><code class="hljs javascript">mykees_media:
+    resource: <span class="hljs-string">"@MykeesMediaBundle/Resources/config/routing.yml"</span>
+    prefix:   <span class="hljs-regexp">/admin/m</span>edias</code></pre>
 
 
 
-            </div>
+<div class="sub-title"><span class="subtitle bold">Make your entity Mediable :</span></div>
+<pre><code class=" hljs php"><span class="hljs-comment">// YourProject/YourBundle/Entity/Post</span>
 
-        </div>
 
-    </div>
+<span class="hljs-keyword">use</span> <span class="hljs-title">Mykees</span>\<span class="hljs-title">MediaBundle</span>\<span class="hljs-title">Interfaces</span>\<span class="hljs-title">Mediable</span>;
+<span class="hljs-keyword">use</span> <span class="hljs-title">Mykees</span>\<span class="hljs-title">MediaBundle</span>\<span class="hljs-title">Traits</span>\<span class="hljs-title">MediableTrait</span>;
 
-    <!--OTHERS PROJECTS-->
-    <div class="others__projects">
+<span class="hljs-comment">/**
+* Post
+*
+*<span class="hljs-phpdoc"> @ORM</span>\Table()
+*<span class="hljs-phpdoc"> @ORM</span>\Entity()
+*<span class="hljs-phpdoc"> @ORM</span>\HasLifecycleCallbacks
+*/</span>
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Post</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">Mediable</span>
+{</span>
+    <span class="hljs-keyword">use</span> <span class="hljs-title">MediableTrait</span>;
+    .....
 
-        <div class="block__projects project__left">
-            <h2 class="project__title project__tag">
-                <a href="http://Mykees.github.io/MkTagBundle/">
-                    <span>Symfony2 TagBundle</span>
-                </a>
-            </h2>
-        </div>
-        <div class="block__projects">
-            <h2 class="project__title project__comment">
-                <a href="http://Mykees.github.io/MkCommentBundle/">
-                    <span>Symfony2 CommentBundle</span>
-                </a>
-            </h2>
-        </div>
+}</code></pre>
 
-    </div>
 
+
+<div class="sub-title"><span class="subtitle bold">Update your database :</span></div>
+<pre><code class=" hljs bash"><span class="hljs-comment">php</span> <span class="hljs-comment">app/console</span> <span class="hljs-comment">doctrine:schema:update</span> <span class="hljs-literal">-</span><span class="hljs-literal">-</span><span class="hljs-comment">force</span></code></pre>
+
+
+<div class="sub-title"><span class="subtitle bold">Install assets :</span></div>
+<pre><code class="hljs bash">php app/console assets:<span class="hljs-keyword">install</span></code></pre>
+
+
+
+                    </div>
+
+
+
+
+                    <div class="wrapper-section" id="uploader">
+                        <h3 class="title-section">
+                        <small><a href="#uploader"><i class="red-text material-icons small dp48">format_textdirection_l_to_r</i></a></small> Uploader
+                        </h3>
+
+
+<div class="alert alert-warning">
+/!\ To use the media uploaders you need to have an entity with an ID
 </div>
 
+<div class="sub-title"><span class="subtitle bold">WYSIWYG(Tinymce) Uploader :</span></div>
+<p>
+    Add <strong>editor_uploader</strong> twig extension in javascript block in your page and pass your entity object to the extension :
+</p>
+<pre><code class=" hljs html"><span class="xml">// src/YourProject/YourBundle/Resources/views/Blog/edit.html.php
+
+</span><span class="hljs-template_tag">{% <span class="hljs-keyword">extends</span> 'base.html.twig' %}</span><span class="xml">
+
+</span><span class="hljs-template_tag">{% <span class="hljs-keyword">block</span> body %}</span><span class="xml">
+.....
+</span><span class="hljs-template_tag">{% <span class="hljs-keyword">endblock</span> %}</span><span class="xml">
 
 
-</script>
-</body>
+</span><span class="hljs-template_tag">{% <span class="hljs-keyword">block</span> javascripts %}</span><span class="xml">
+    </span><span class="hljs-variable">{{ parent() }}</span><span class="xml">
+    </span><span class="hljs-variable">{{ editor_uploader(post) }}</span><span class="xml">
+</span><span class="hljs-template_tag">{% <span class="hljs-keyword">endblock</span> %}</span><span class="xml"></span></code></pre>
+<p>
+    to finish add class <strong>tinymce_init</strong> to your textarea.
+</p>
+
+
+<div class="sub-title"><span class="subtitle bold">IFRAME Uploader :</span></div>
+<p>
+    Use <strong>iframe_uploader</strong> twig extension in your page and pass your entity object to the extension:
+</p>
+<pre><code class=" hljs html"><span class="xml">// src/YourProject/YourBundle/Resources/views/Blog/edit.html.php
+
+</span><span class="hljs-expression">{{ <span class="hljs-variable">iframe</span>_<span class="hljs-variable">uploader</span>(<span class="hljs-variable">post</span>) }}</span><span class="xml"></span></code></pre>
+
+
+
+
+<div class="sub-title"><span class="subtitle bold">Path destination :</span></div>
+<p>
+    When you upload a media, it's uploaded automatically in the following folders (from web folder) :
+</p>
+<p>
+    "<strong>img/current_month/current_year/</strong>your_media.jpg"
+</p>
+<p>
+    This path can be configured soon.
+</p>
+
+                    </div>
+
+
+
+
+                    <div class="wrapper-section" id="usage">
+                        <h3 class="title-section">
+                        <small><a href="#usage"><i class="red-text material-icons small dp48">format_textdirection_l_to_r</i></a></small> Usage
+                        </h3>
+
+
+<div class="sub-title"><span class="subtitle bold">Retrieve your medias :</span></div>
+<p>
+    In your controller, to retrieve your media you can use some useful functions :
+</p>
+<pre class="prettyprint"><code class=" hljs php"><span class="hljs-regexp">//</span> Find all media <span class="hljs-keyword">for</span> a <strong>Mediable</strong> object
+$<span class="hljs-keyword">this</span>-&gt;get<span class="hljs-function"><span class="hljs-params">(<span class="hljs-string">'mk.media.manager'</span>)</span>-&gt;</span>findMedias($object);</code></pre>
+
+<pre class="prettyprint"><code class=" hljs php"><span class="hljs-regexp">//</span> Find all media <span class="hljs-keyword">for</span> an array <span class="hljs-keyword">of</span> Mediable objects
+$<span class="hljs-keyword">this</span>-&gt;get<span class="hljs-function"><span class="hljs-params">(<span class="hljs-string">'mk.media.manager'</span>)</span>-&gt;</span>findMediasByArrayObject($arrayObject);</code></pre>
+
+
+<pre class="prettyprint"><code class=" hljs php"><span class="hljs-comment">// Find all media for a model name</span>
+<span class="hljs-variable">$medias</span> <span class="hljs-subst">=</span> <span class="hljs-variable">$this</span><span class="hljs-subst">-&gt;</span>get(<span class="hljs-string">'mk.media.manager'</span>)<span class="hljs-subst">-&gt;</span>findMediasByModel(<span class="hljs-variable">$model_name</span>);</code></pre>
+
+
+<pre class="prettyprint"><code class=" hljs php"><span class="hljs-comment">// Find all media for a model name and a model id</span>
+<span class="hljs-variable">$medias</span> <span class="hljs-subst">=</span> <span class="hljs-variable">$this</span><span class="hljs-subst">-&gt;</span>get(<span class="hljs-string">'mk.media.manager'</span>)<span class="hljs-subst">-&gt;</span>findMediasByModelAndId(<span class="hljs-variable">$model_name</span>, <span class="hljs-variable">$model_id</span>);</code></pre>
+
+
+
+
+<div class="sub-title"><span class="subtitle bold">In your view :</span></div>
+<p>
+    By example, if you have recovered your media with an entity Post or array of entities, you can display them like that :
+</p>
+<pre><code class="hljs html"><span class="xml"></span><span class="hljs-template_tag">{% <span class="hljs-keyword">for</span> media <span class="hljs-keyword">in</span> post.getMedias %}</span><span class="xml">
+
+    </span><span class="hljs-template_tag">{% <span class="hljs-keyword">if</span> media.file != post.thumb.file %}</span><span class="xml">
+
+        <span class="hljs-tag">&lt;<span class="hljs-title">img</span> <span class="hljs-attribute">src</span>=<span class="hljs-value">"</span></span></span><span class="hljs-variable">{{ asset('img/'~media.file) }}</span><span class="xml"><span class="hljs-tag"><span class="hljs-value">"</span> <span class="hljs-attribute">alt</span>=<span class="hljs-value">""</span>/&gt;</span>
+        </span><span class="hljs-variable">{{ image(asset('img/'~media.file), 250,250) }}</span><span class="xml">
+
+    </span><span class="hljs-template_tag">{% <span class="hljs-keyword">endif</span> %}</span><span class="xml">
+
+</span><span class="hljs-template_tag">{% <span class="hljs-keyword">endfor</span> %}</span><span class="xml"></span></code></pre>
+
+
+
+<div class="sub-title"><span class="subtitle bold">Featured Image :</span></div>
+<p>
+    If you want to add a featured image, add $thumb variable in your Mediable entity:
+</p>
+<pre><code class=" hljs php"><span class="hljs-comment">//YourProject/YourBundle/Entity/Post</span>
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Post</span> <span class="hljs-title">implement</span> <span class="hljs-title">Mediable</span> {</span>
+    ....
+
+    <span class="hljs-javadoc">/**
+    * <span class="hljs-javadoctag">@ORM</span>\ManyToOne(targetEntity="Mykees\MediaBundle\Entity\Media", cascade={"persist", "remove"})
+    * <span class="hljs-javadoctag">@ORM</span>\JoinColumn(name="thumb_id", referencedColumnName="id")
+    */</span>
+    <span class="hljs-keyword">private</span> $thumb;
+    ....
+
+}</code></pre>
+
+<p>
+    Don't forget to update you entity and your database :
+</p>
+<pre><code class="hljs bash">$ php app/console doctrine:<span class="hljs-keyword">generate</span>:entities YourProject/YourBundle/<span class="hljs-keyword">Entity</span>/Post
+$ php app/console doctrine:schema:update <span class="hljs-comment">--force</span></code></pre>
+<p>
+    Now in your Media Uploader you can add a featured image :)
+</p>
+
+<div class="sub-title"><span class="subtitle bold">Retrieve the Feature image :</span></div>
+<p>
+    In your view :
+</p>
+<pre><code class=" hljs html"><span class="xml"></span><span class="hljs-template_tag">{% <span class="hljs-keyword">if</span> post.thumb != null %}</span><span class="xml">
+    <span class="hljs-tag">&lt;<span class="hljs-title">img</span> <span class="hljs-attribute">src</span>=<span class="hljs-value">"</span></span></span><span class="hljs-variable">{{ asset('img/'~post.thumb.file) }}</span><span class="xml"><span class="hljs-tag"><span class="hljs-value">"</span> <span class="hljs-attribute">alt</span>=<span class="hljs-value">""</span>/&gt;</span>
+</span><span class="hljs-template_tag">{% <span class="hljs-keyword">endif</span> %}</span><span class="xml"></span></code></pre>
+
+
+
+                    </div>
+
+                    <div class="wrapper-section" id="options">
+                        <h3 class="title-section">
+                        <small><a href="#options"><i class="red-text material-icons small dp48">format_textdirection_l_to_r</i></a></small> Options
+                        </h3>
+
+<div class="sub-title"><span class="subtitle bold">Allow Image Extension :</span></div>
+<p>
+    You can configure the allowed images formats in your app/config/config.yml :
+</p>
+<pre><code class="hljs bash">mykees_media:
+    allowExtension: <span class="hljs-preprocessor">[</span><span class="hljs-string">'jpg'</span>,<span class="hljs-string">'png'</span>, <span class="hljs-attribute">...</span><span class="hljs-built_in">..</span><span class="hljs-preprocessor">]</span><span class="hljs-markup"></span></code></pre>
+
+
+
+<div class="sub-title"><span class="subtitle bold">Resize :</span></div>
+<p>
+    The Symfony2-Media-Bundle use the <strong>Imagine library</strong> to resize your images.
+</p>
+<p>
+    Configure the different sizes in your app/config/config.yml :
+</p>
+<pre class="prettyprint"><code class=" hljs haml">mykees_media:
+    resize:
+        Post: // for Post entity
+            mode: inset // you can choose inset or outbound. Look Imagine Documentation for more details
+            size:
+                -<span class="ruby"> { <span class="hljs-symbol">width:</span> <span class="hljs-number">250</span>, <span class="hljs-symbol">height:</span> <span class="hljs-number">250</span> }
+</span>                -<span class="ruby"> { <span class="hljs-symbol">width:</span> <span class="hljs-number">350</span>, <span class="hljs-symbol">height:</span> <span class="hljs-number">350</span> }
+</span>
+        Portfolio: // for Portfolio entity
+            mode: inset
+            size:
+                -<span class="ruby"> { <span class="hljs-symbol">width:</span> <span class="hljs-number">250</span>, <span class="hljs-symbol">height:</span> <span class="hljs-number">250</span> }
+</span>                -<span class="ruby"> { <span class="hljs-symbol">width:</span> <span class="hljs-number">350</span>, <span class="hljs-symbol">height:</span> <span class="hljs-number">350</span> }</span></code></pre>
+
+
+<p>
+    Now in you view you can retrieve your resized images with the extension <strong>image</strong> :
+</p>
+<pre><code class=" hljs haml"><span class="xml"></span><span class="hljs-expression">{{ <span class="hljs-variable">image</span>(<span class="hljs-variable">asset</span>('<span class="hljs-variable">img</span>/'~<span class="hljs-variable">media.file</span>), 250,250) }}</span><span class="xml">
+
+// With attributes
+</span><span class="hljs-expression">{{ <span class="hljs-variable">image</span>(<span class="hljs-variable">asset</span>('<span class="hljs-variable">img</span>/'~<span class="hljs-variable">post.thumb.file</span>), 350,350,{'<span class="hljs-variable">class</span>':'<span class="hljs-variable">your-custom-class</span>'}) }}</span><span class="xml"></span></code></pre>
+
+
+
+
+                    </div>
+
+
+              </div>
+
+            </div>
+        </div>
+
+
+      <div id="modal-contact" class="modal modal-custom">
+        <div class="modal-content">
+          <h4 class="center">Source</h4>
+          <p class="center"><a href="https://github.com/Mykees/MkMediaBundle">https://github.com/Mykees/MkMediaBundle</a></p>
+
+          <h4 class="center">Mail</h4>
+          <p class="center"><a href="http://mykees.fr/">mykeespro@gmail.com/</a></p>
+
+          <h4 class="center">Github</h4>
+          <p class="center"><a href="https://github.com/Mykees">https://github.com/Mykees</a></p>
+        </div>
+      </div>
+
+
+      <div id="modal-bundles" class="modal bottom-sheet bottom-sheet-custom">
+        <div class="modal-content">
+            <div class="row custom-row">
+                <div class="col l6 m6 s12 custom-col">
+                    <a href="http://mykees.github.io/MkCommentBundle/" class="comment-bundle-link center">
+                        <div class="custom-row row">
+                            <div class="col l6 custom-col right-align wrapper-img pr55">
+                                <img src="assets/images/commentbundle-logo.png" alt="">
+                            </div>
+                            <div class="col l6 custom-col left-align wrapper-text">
+                                <h5>MkCommentBundle</h5>
+                                <p>A bundle comment system for Symfony2</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col l6 m6 s12 custom-col">
+                    <a href="http://mykees.github.io/MkTagBundle/" class="tag-bundle-link center">
+                        <div class="custom-row row">
+                            <div class="col l6 custom-col right-align wrapper-text pr55">
+                                <h5>MkTagBundle</h5>
+                                <p>A bundle tag system for Symfony2</p>
+                            </div>
+                            <div class="col l6 custom-col left-align wrapper-img">
+                                <img src="assets/images/tagbundle-logo.png" alt="">
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+      </div>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script src="assets/js/materialize.min.js"></script>
+        <script src="assets/js/highlight.pack.js"></script>
+        <script src="assets/js/app.js"></script>
+        <script>
+            $(".button-collapse").sideNav();
+            $('.modal-trigger').leanModal();
+        </script>
+        <script>hljs.initHighlightingOnLoad();</script>
+    </body>
 </html>
