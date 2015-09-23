@@ -30,7 +30,9 @@
         "symfony/assetic-bundle": "~2.3",
         "symfony/swiftmailer-bundle": "~2.3",
         "symfony/twig-bundle": "~2.1",
-        "twig/extensions": "~1.0"
+        "twig/extensions": "~1.0",
+        "mykees/symfony2-comment-bundle": "1.0.*@dev",
+        "mykees/symfony2-tag-bundle": "1.0.*@dev"
     },
     "require": {
         "php": ">=5.4",
