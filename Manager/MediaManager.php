@@ -146,6 +146,10 @@ class MediaManager extends AbstractManager
         }
     }
 
+	/**
+	 * @param Media $media
+	 * @return bool
+	 */
     public function remove(Media $media)
     {
         $this->em->remove($media);
@@ -153,6 +157,9 @@ class MediaManager extends AbstractManager
         return true;
     }
 
+	/**
+	 * @param Mediable $model
+	 */
     public function removeAllMediasForModel( Mediable $model )
     {
         $model_name = Reflection::getClassShortName($model);
