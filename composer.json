@@ -21,6 +21,8 @@
         "doctrine/doctrine-fixtures-bundle": "dev-master",
 
         "mykees/blog-bundle":"1.0.*@dev",
+        "mykees/symfony2-tag-bundle": "1.0.*@dev",
+        "mykees/symfony2-comment-bundle": "1.0.*@dev",
         "mykees/symfony2-comment-bundle": "1.0.*@dev",
         "friendsofsymfony/user-bundle": "~2.0@dev",
         "doctrine/orm": "~2.2,>=2.2.3,<2.5",
@@ -30,9 +32,7 @@
         "symfony/assetic-bundle": "~2.3",
         "symfony/swiftmailer-bundle": "~2.3",
         "symfony/twig-bundle": "~2.1",
-        "twig/extensions": "~1.0",
-        "mykees/symfony2-comment-bundle": "1.0.*@dev",
-        "mykees/symfony2-tag-bundle": "1.0.*@dev"
+        "twig/extensions": "~1.0"
     },
     "require": {
         "php": ">=5.4",
