@@ -1,11 +1,11 @@
 # Add to documentation #
 
 ### Add MediaBundle to assetic bundles to your app/config.yml ###
-  assetic:
-    [...]
-    bundles:
+    assetic:
       [...]
-      - MykeesMediaBundle
+      bundles:
+        [...]
+        - MykeesMediaBundle
 
 ### Add MediaBundle widget twig template to twig app/config.yml ###
   twig:
