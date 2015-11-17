@@ -1,0 +1,23 @@
+{% block singleimage_widget %}
+    {% javascripts debug=false output="js/mediabundle.js"
+        '@MykeesMediaBundle/Resources/public/js/mediabundle-single-image-widget.js'
+    %}
+        <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+
+    {% spaceless %}
+        <div class="image-picker">
+            <div {{ block('widget_container_attributes') }}>
+            {% set i = 0 %}
+            {% for choice in entities %}
+                <label for="{{form.vars.name ~ i}}">
+                    <input type="radio" id="{{form.vars.name ~ i}}" name="{{form.vars.name}}" value="{{choice.id}}"/>
+                    <img style="max-width: 100px; max-height:100px;" src="/img/{{ choice.file }}"/>
+                </label>
+                {% set i = i + 1 %}
+            {% endfor %}
+
+            </div>
+        </div>
+    {% endspaceless %}
+{% endblock singleimage_widget %}
