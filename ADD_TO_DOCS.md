@@ -29,8 +29,8 @@ In controller, pass in the Media service
       }
 
 Then in your FormType
-  // YourBundle/Form/YourFormType.php
-  [...]
+    // YourBundle/Form/YourFormType.php
+    [...]
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
