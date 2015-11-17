@@ -8,25 +8,25 @@
         - MykeesMediaBundle
 
 ### Add MediaBundle widget twig template to twig app/config.yml ###
-  twig:
-    [...]
-  form_themes:
-    - MykeesMediaBundle:Media:fields.html.twig
+    twig:
+      [...]
+    form_themes:
+      - MykeesMediaBundle:Media:fields.html.twig
 
 ### Example usage of widget ###
 In controller, pass in the Media service
-  // YourBundle/Controller/YourFormController.php
-  [..]
-    private function createCreateForm(EntityName $entity)
-    {
-        $form = $this->createForm(new EntityNameType($this->get('mk.media.manager')), $entity, array(
-            'action' => $this->generateUrl('blahblah'),
-            'method' => 'POST',
-        ));
-
-        $form->add('submit', 'submit', array('label' => 'Create'));
-        return $form;
-    }
+    // YourBundle/Controller/YourFormController.php
+    [..]
+      private function createCreateForm(EntityName $entity)
+      {
+          $form = $this->createForm(new EntityNameType($this->get('mk.media.manager')), $entity, array(
+              'action' => $this->generateUrl('blahblah'),
+              'method' => 'POST',
+          ));
+          
+          $form->add('submit', 'submit', array('label' => 'Create'));
+          return $form;
+      }
 
 Then in your FormType
   // YourBundle/Form/YourFormType.php
