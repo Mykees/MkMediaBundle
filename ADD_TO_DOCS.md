@@ -17,16 +17,16 @@
 In controller, pass in the Media service
     // YourBundle/Controller/YourFormController.php
     [..]
-      private function createCreateForm(EntityName $entity)
-      {
-          $form = $this->createForm(new EntityNameType($this->get('mk.media.manager')), $entity, array(
-              'action' => $this->generateUrl('blahblah'),
-              'method' => 'POST',
-          ));
+    private function createCreateForm(EntityName $entity)
+    {
+        $form = $this->createForm(new EntityNameType($this->get('mk.media.manager')), $entity, array(
+            'action' => $this->generateUrl('blahblah'),
+            'method' => 'POST',
+        ));
           
-          $form->add('submit', 'submit', array('label' => 'Create'));
-          return $form;
-      }
+        $form->add('submit', 'submit', array('label' => 'Create'));
+        return $form;
+    }
 
 Then in your FormType
     // YourBundle/Form/YourFormType.php
