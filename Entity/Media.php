@@ -9,7 +9,6 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="Mykees\MediaBundle\Repository\MediaRepository")
- * @ORM\HasLifecycleCallbacks()
  */
 class Media
 {
@@ -197,13 +196,5 @@ class Media
     {
         $this->createdOn = $datetime;
         return $this->createdOn;
-    }
-
-    /**
-     * @ORM\PrePersist
-     */
-    public function setCreatedOnValue()
-    {
-            $this->createdOn = new \DateTime();
     }
 }
