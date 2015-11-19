@@ -1,23 +1,37 @@
-{% block singleimage_widget %}
+{% block singleimage_multimodel_widget %}
     {% javascripts debug=false output="js/mediabundle.js"
         '@MykeesMediaBundle/Resources/public/js/mediabundle-single-image-widget.js'
     %}
         <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endjavascripts %}
 
-    {% spaceless %}
-        <div class="image-picker">
-            <div {{ block('widget_container_attributes') }}>
-            {% set i = 0 %}
-            {% for choice in entities %}
-                <label for="{{form.vars.name ~ i}}">
-                    <input type="radio" id="{{form.vars.name ~ i}}" name="{{form.vars.name}}" value="{{choice.id}}"/>
-                    <img style="max-width: 100px; max-height:100px;" src="/img/{{ choice.file }}"/>
-                </label>
-                {% set i = i + 1 %}
-            {% endfor %}
+    {% stylesheets debug=false output="css/mediabundle.css"
+        '@MykeesMediaBundle/Resources/public/css/mediabundle-single-image-widget.css'
+    %}
+        <link rel="stylesheet" type="text/css" href="{{ asset_url }}"/>
+    {% endstylesheets %}
 
+    <div {{ block('widget_container_attributes') }}>
+        <div class="media-widget">
+            <div class="label">
+                {{ form.vars.label }}
             </div>
+
+            <div class="previous-image-container media-row" style="display:none;">
+                <img src="" alt=""/>
+            </div>
+
+            {% set current_image_set = value is not null and attribute(value, 'file') is defined %}
+            <div class="current-image-container media-row" style="{{ current_image_set ? '' : 'display:none' }}">
+                {% if current_image_set %}
+                        <img class="current-image" src="/img/{{ asset(value.file) }}" alt="{{ value.name }}"/>
+                    {% else %}
+                        {# Empty for javascript #}
+                        <img class="current-image" src="" alt=""/>
+                {% endif %}
+            </div>
+
         </div>
-    {% endspaceless %}
-{% endblock singleimage_widget %}
+    </div>
+
+{% endblock singleimage_multimodel_widget %}
