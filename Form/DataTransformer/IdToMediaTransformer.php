@@ -21,7 +21,7 @@ class IdToMediaTransformer implements DataTransformerInterface
             return '';
         }
 
-        return $val->getId();
+        return (int)$val;
     }
 
     // transforms the Media id into an Media object
@@ -31,12 +31,12 @@ class IdToMediaTransformer implements DataTransformerInterface
             return null;
         }
 
-        $issue = $this->om->getRepository('MykeesMediaBundle:Media')->findOneBy(array('id' => $val));
+        $media = $this->om->getRepository('MykeesMediaBundle:Media')->findOneBy(array('id' => $val));
 
-        if (null === $issue) {
+        if (null === $media) {
             throw new TransformationFailedException(sprintf('A media with id %s could not be found!', $val));
         }
 
-        return $issue;
+        return $media;
     }
 }
