@@ -1,12 +1,5 @@
-{% spaceless %}
+{% for image in images %}
     {% set i = 0 %}
-    {% for choice in entities %}
-        <div class="item-container">
-            <label for="{{form.vars.name ~ i}}">
-                <input type="radio" id="{{form.vars.name ~ i}}" name="{{form.vars.name}}" value="{{choice.id}}"/>
-                <img style="max-width: 100px; max-height:100px;" src="/img/{{ choice.file }}"/>
-            </label>
-        </div>
-        {% set i = i + 1 %}
-    {% endfor %}
-{% endspaceless %}
+    {% include 'MykeesMediaBundle:Media:image_template.html.twig' with {image: image, i: i} %} 
+    {% set i = i + 1 %}
+{% endfor %}
