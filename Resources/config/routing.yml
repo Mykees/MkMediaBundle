@@ -46,4 +46,6 @@ mykees_media_ajax_fetch_for_model:
     requirements:
         model: '[a-zA-Z0-9]+'
     methods: [POST]
+    options:
+        expose: true
 
