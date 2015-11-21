@@ -1,0 +1,10 @@
+{% spaceless %}
+    <div class="media-row media-option">
+        <label for="{{ image.name }}">
+            <div class="verticalAlignText" >{{ image.name }}</div>
+            <input type="radio" id="{{ image.name }}" name="bay12_corebundle_siteuser[profileImage]" value={{ image.id }}/>
+            <img class="" src="/img/{{ image.file }}"/>
+        </label>
+    </div>
+{% endspaceless %}
+
