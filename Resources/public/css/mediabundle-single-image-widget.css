@@ -1,3 +1,12 @@
+.verticalAlignText {
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+    vertical-align: middle;
+    float: left;
+    margin-left: 10px;
+}
+
 .media-widget {
     width: 230px;
     min-height: 300px;
@@ -6,6 +15,8 @@
 .media-widget .media-row {
     border-radius: 3px;
     background: linear-gradient(0, #DDDDDD, #CCCCCC);
+    font-size: 17px;
+    font-weight: bold;
 }
 
 .media-widget .media-row img {
@@ -20,12 +31,12 @@
 
 .media-widget .current-image-container {
     background-color: limegreen;
-    height: 104px;
+    height: 60px;
 }
 
 .media-widget .media-row img {
-    max-width: 70px;
-    max-height: 70px;
+    max-width: 50px;
+    max-height: 50px;
     float: right;
     border-radius: 5px;
     opacity: 0.85;
@@ -35,7 +46,6 @@
     margin-right: 4px;
     border: 1px solid #AAA;
 }
-
 
 .media-widget .wiget-item-container {
     float: left;

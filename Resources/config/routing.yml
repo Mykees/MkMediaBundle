@@ -39,3 +39,11 @@ mykees_media:
         bundle: '[a-zA-Z0-9]+'
         model_id: \d+
         editor: '[a-zA-Z0-9]+'
+
+mykees_media_ajax_fetch_for_model:
+    path: /media/widget/{model}
+    defaults: { _controller: MykeesMediaBundle:WidgetAjax:fetchForModel }
+    requirements:
+        model: '[a-zA-Z0-9]+'
+    methods: [POST]
+
