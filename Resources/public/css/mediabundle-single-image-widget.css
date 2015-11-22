@@ -1,3 +1,4 @@
+/* make sure the parent has a w/h */
 .verticalAlignText {
     position: relative;
     top: 50%;
@@ -7,16 +8,41 @@
     margin-left: 10px;
 }
 
+/* Widget */
+
 .media-widget {
     width: 230px;
     min-height: 300px;
     border: 1px solid black;
+    background: linear-gradient(#ededed, #ddd);
+    overflow-y: scroll;
+    overflow-x: hidden;
 }
+
+.media-widget input[type="radio"] {
+    display: none;
+}
+
+.media-widget label {
+    height: 100%;
+    width: 100%;
+}
+
+.media-widget .filename {
+    font-size: 15px;
+    font-weight: normal;
+}
+
 .media-widget .media-row {
     border-radius: 3px;
     background: linear-gradient(0, #DDDDDD, #CCCCCC);
     font-size: 17px;
     font-weight: bold;
+    height: 70px;
+    width: 250px;
+    float: left;
+    margin: 1px;
+    max-width: 100%;
 }
 
 .media-widget .media-option {
@@ -24,23 +50,16 @@
     font-weight: normal;
 }
 
-.clearer {
-    clear: both;
-}
-
-.media-widget .media-row img {
-    max-width: 100px;
-    max-height: 100px;
-}
-
 .media-widget .previous-image-container {
     height: 104px;
     font-weight: bold;
+    width: 100%;
 }
 
 .media-widget .current-image-container {
     background-color: limegreen;
     height: 60px;
+    width: 100%;
 }
 
 .media-widget .media-row img {

@@ -8,10 +8,6 @@
     <div {{ block('widget_container_attributes') }}>
         <div class="media-widget">
             <button onclick="MediaAjaxImageFetch(); return false;">Try again</button>
-            <div class="label">
-                {{ form.vars.label }}
-            </div>
-
             <div class="previous-image-container media-row" style="display:none;">
                 <img src="" alt=""/>
             </div>
@@ -40,7 +36,7 @@
             {% endif %}
             
             <div class="media-selection">
-                <div class="media-selection-loading">
+                <div style="display:none;" class="media-selection-loading">
                     -- LOADING --
                 </div>
                 <div class="media-selection-container">
