@@ -7,6 +7,7 @@ function MediaAjaxImageFetch (el) {
         url: Routing.generate('mykees_media_ajax_fetch_for_model', {model:'SiteUser'}),
         success: function (response, status) {
             el.html(response);
+            $('.remove-on-ajax-complete').remove();
             PrepareSelectionActions(el, panel);
         }
     });
@@ -49,17 +50,26 @@ function UpdateCurrentAndPreviousMedia(clicked, context) {
     var originalValue = $('.original-value', context).val();
     var lastSetValue = $('.last-set-value', context).val();
 
-    var previousName = $('.image-info-text', previous);
-    var currentName = $('.image-info-text', current);
+    var previousName = $('.image-info-text.filename', previous);
+    var currentName = $('.image-info-text.filename', current);
     var clickedName = $('.filename', clicked);
 
+    var previousDatetime = $('.image-info-text .upload-datetime', previous);
+    var currentDatetime = $('.image-info-text .upload-datetime', current);
+    var clickedDatetime = $('.upload-datetime', clicked);
+
+    // Only previous if this is the first item selected
     if (originalValue == lastSetValue) {
         previousImg.attr('src', currentImg.attr('src'));
         previousName.html(currentName.html());
+        previousDatetime.html(currentDatetime.html());
     }
-    currentName.html(clickedName.html());
-
     $('.last-set-value', context).val(clickedValue);
+    console.log(clickedName);
+    console.log(currentName);
+    console.log(currentDatetime);
+    currentName.html(clickedName.html());
+    currentDatetime.html(clickedDatetime.html());
     currentImg.attr('src', clickedImg.attr('src'));
 
     if (previous.is(':hidden')) {

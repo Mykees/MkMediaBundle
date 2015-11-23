@@ -7,46 +7,43 @@
 
     <div {{ block('widget_container_attributes') }}>
         <div class="media-widget">
-            <div class="topwrapper">
-                <div class="media-status">
-                    <input type="text" class="original-value" value="{{ value.id }}" />
+            <input type="text" class="original-value" value="{{ value.id }}" />
 
-                    <div class="previous-image-container media-row" style="display:none;">
-                        <div class="previous-image-text verticalAlignText">
-                            <div>Previous Image:</div>
-                            <div class="image-info-text"></div>
-                        </div>
-                        <img src="" alt=""/>
-                    </div>
-
-                    <div class="clear"></div>
-
-                    {% set current_image_set = value is not null and attribute(value, 'file') is defined %}
-                    <div class="current-image-container media-row" style="{{ current_image_set ? '' : 'display:none' }}">
-                        <div class="current-image-text verticalAlignText">
-                            <div>Current Image:</div>
-                            <div class="image-info-text">{{ value.file }}</div>
-                        </div>
-                        <input type="text" class="last-set-value" value="{{ value.id }}" />
-
-                        {% if current_image_set %}
-                                <input type="radio" id="{{ value.name }}" name="{{full_name}}" value="{{ value.id }}" checked="checked" />
-                                <img class="current-image" src="/img/{{ asset(value.file) }}" alt="{{ value.name }}"/>
-                            {% else %}
-                                {# Empty for javascript #}
-                                <img class="current-image" src="" alt=""/>
-                        {% endif %}
-                    </div>
-                </div>
-                <div class="upload-area">
-                    <div class="">
-                        UPLOAD NEW FILES
-                    </div>
-                    <div class="clear"></div>
-                </div>
+            <div class="previous-image-container media-row status-indicator" style="display:none;">
+                <img src="" alt=""/>
+                <div class="status-title">Previous Image:</div>
+                <div class="image-info-text filename"></div>
                 <div class="clear"></div>
+                <div class="image-info-text uploaded-info"><span class="upload-datetime"></span></div>
             </div>
-            <div class="clear"></div>
+
+            {% set current_image_set = value is not null and attribute(value, 'file') is defined %}
+            <div class="current-image-container media-row status-indicator" style="{{ current_image_set ? '' : 'display:none' }}">
+                {% if current_image_set %}
+                        <input type="radio" class="remove-on-ajax-complete" id="{{ value.name }}" name="{{full_name}}" value="{{ value.id }}" checked="checked" />
+                        <img class="current-image" src="/img/{{ asset(value.file) }}" alt="{{ value.name }}"/>
+                    {% else %}
+                        {# Empty for javascript #}
+                        <img class="current-image" src="" alt=""/>
+                {% endif %}
+                <div class="current-image-text ">
+                    <div class="status-title">Current Image:</div>
+                    <div class="image-info-text filename">{{ value.name }}</div>
+                    <div class="clear"></div>
+                    <div class="image-info-text uploaded-info"><span class="upload-datetime">01/01/15 11:11</span></div>
+                </div>
+                <input type="text" class="last-set-value" value="{{ value.id }}" />
+
+            </div>
+
+            <div class="media-row upload-area status-indicator">
+                <p class="upload-contents">
+                    <span class="fa fa-upload"></span> <span class="fa fa-picture-o"></span>
+                    <br/>
+                    Upload New Image
+                </p>
+            </div>
+
             {% if multimodel is defined and multimodel == true and models is defined %}
                 <select name="{{ label }}-model-select">
                 {% for model in models %}
@@ -61,6 +58,7 @@
                 <div style="display:none;" class="media-selection-loading">
                     -- LOADING --
                 </div>
+                <div class="clear"></div>
                 <div class="media-selection-container">
                 </div>
             </div>

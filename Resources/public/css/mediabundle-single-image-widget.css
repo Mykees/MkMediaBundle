@@ -11,13 +11,7 @@
 /* Widget */
 
 .media-widget {
-    width: 230px;
-    min-height: 300px;
-    border: 1px solid black;
-    background: linear-gradient(#ededed, #ddd);
-    overflow-y: scroll;
-    overflow-x: hidden;
-    resize: both;
+    width: 250px;
 }
 
 .media-widget input.original-value,
@@ -27,8 +21,10 @@
 
 .media-widget .image-info-text {
     font-size: 11px;
-    font-weight: light;
+    font-weight: normal;
     color: #A94442;
+    float: left;
+    margin-left: 5px;
 }
 
 .media-widget input[type="radio"] {
@@ -43,18 +39,22 @@
 .media-widget .filename {
     font-size: 15px;
     font-weight: normal;
+    margin-top: 5px;
+    margin-left: 5px;
+    width: 60%;
+    overflow: hidden;
+    white-space: nowrap;
 }
 
 .media-widget .media-row {
     border-radius: 3px;
-    background: linear-gradient(0, #DDDDDD, #CCCCCC);
+    background: linear-gradient(0, #DDDDDD, #CCCCCC) repeat;
     font-size: 17px;
     font-weight: bold;
     height: 70px;
     width: 250px;
-    float: left;
     margin: 1px;
-    max-width: 100%;
+    float: left;
 }
 
 .media-widget .media-row.clickable,
@@ -67,8 +67,21 @@
     background-image: linear-gradient(#B4BFA8, #8AC383);
 }
 
+.media-widget .media-option.selected:hover {
+    background-color: #B4BFA8;
+    background-image: linear-gradient(#8AC383, #B4BFA8);
+}
+
 .media-widget .media-option.selected img {
     border: 1px dotted #025605;
+}
+
+.media-widget .media-selection-container {
+    overflow-y: scroll;
+    overflow-x: hidden;
+    resize: both;
+    min-width: 270px;
+    height: 120px;
 }
 
 .media-widget .media-option {
@@ -81,10 +94,8 @@
     background-image:url('/bundles/mykeesmedia/images/stripe.png')
 }
 
-.media-widget .current-image-container,
-.media-widget .previous-image-container {
-    height: 60px;
-    width: 200px;
+.media-widget .status-indicator {
+    height: 80px;
 }
 
 .media-widget .media-row img {
@@ -113,17 +124,26 @@
 }
 
 .media-widget .upload-area {
-    float: none;
-    height: 100%; 
     background-color: red;
-    overflow: hidden;
+    font-size: 20px;
+    vertical-align:middle;
+    text-align: center;
 }
 
-.topwrapper {
-    width: 100%;
-    border-bottom: 1px solid #DDD;
+.status-indicator .status-title {
+    width: 50%;
+    padding-left:5px;
+    padding-top: 3px;
+    font-size: 11px;
+    border-bottom: 1px solid #555;
+    float:left;
 }
 
 .clear {
-    clear: both;
+    height: 0;
+    clear:both;
+}
+
+.upload-contents {
+    margin-top: 5px;
 }
