@@ -7,24 +7,46 @@
 
     <div {{ block('widget_container_attributes') }}>
         <div class="media-widget">
-            <button onclick="MediaAjaxImageFetch(); return false;">Try again</button>
-            <div class="previous-image-container media-row" style="display:none;">
-                <img src="" alt=""/>
-            </div>
+            <div class="topwrapper">
+                <div class="media-status">
+                    <input type="text" class="original-value" value="{{ value.id }}" />
 
-            {% set current_image_set = value is not null and attribute(value, 'file') is defined %}
-            <div class="current-image-container media-row" style="{{ current_image_set ? '' : 'display:none' }}">
-                <div class="current-image-text verticalAlignText">
-                    Current Image:
+                    <div class="previous-image-container media-row" style="display:none;">
+                        <div class="previous-image-text verticalAlignText">
+                            <div>Previous Image:</div>
+                            <div class="image-info-text"></div>
+                        </div>
+                        <img src="" alt=""/>
+                    </div>
+
+                    <div class="clear"></div>
+
+                    {% set current_image_set = value is not null and attribute(value, 'file') is defined %}
+                    <div class="current-image-container media-row" style="{{ current_image_set ? '' : 'display:none' }}">
+                        <div class="current-image-text verticalAlignText">
+                            <div>Current Image:</div>
+                            <div class="image-info-text">{{ value.file }}</div>
+                        </div>
+                        <input type="text" class="last-set-value" value="{{ value.id }}" />
+
+                        {% if current_image_set %}
+                                <input type="radio" id="{{ value.name }}" name="{{full_name}}" value="{{ value.id }}" checked="checked" />
+                                <img class="current-image" src="/img/{{ asset(value.file) }}" alt="{{ value.name }}"/>
+                            {% else %}
+                                {# Empty for javascript #}
+                                <img class="current-image" src="" alt=""/>
+                        {% endif %}
+                    </div>
                 </div>
-                {% if current_image_set %}
-                        <img class="current-image" src="/img/{{ asset(value.file) }}" alt="{{ value.name }}"/>
-                    {% else %}
-                        {# Empty for javascript #}
-                        <img class="current-image" src="" alt=""/>
-                {% endif %}
+                <div class="upload-area">
+                    <div class="">
+                        UPLOAD NEW FILES
+                    </div>
+                    <div class="clear"></div>
+                </div>
+                <div class="clear"></div>
             </div>
-
+            <div class="clear"></div>
             {% if multimodel is defined and multimodel == true and models is defined %}
                 <select name="{{ label }}-model-select">
                 {% for model in models %}

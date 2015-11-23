@@ -17,6 +17,18 @@
     background: linear-gradient(#ededed, #ddd);
     overflow-y: scroll;
     overflow-x: hidden;
+    resize: both;
+}
+
+.media-widget input.original-value,
+.media-widget input.last-set-value {
+    display: none;
+}
+
+.media-widget .image-info-text {
+    font-size: 11px;
+    font-weight: light;
+    color: #A94442;
 }
 
 .media-widget input[type="radio"] {
@@ -45,21 +57,34 @@
     max-width: 100%;
 }
 
+.media-widget .media-row.clickable,
+.media-widget .media-row.clickable label {
+    cursor: pointer;
+}
+
+.media-widget .media-option.selected {
+    background-color: #B4BFA8;
+    background-image: linear-gradient(#B4BFA8, #8AC383);
+}
+
+.media-widget .media-option.selected img {
+    border: 1px dotted #025605;
+}
+
 .media-widget .media-option {
     font-size: 16px;   
     font-weight: normal;
 }
 
 .media-widget .previous-image-container {
-    height: 104px;
-    font-weight: bold;
-    width: 100%;
+    background: linear-gradient(0, #999, #777);
+    background-image:url('/bundles/mykeesmedia/images/stripe.png')
 }
 
-.media-widget .current-image-container {
-    background-color: limegreen;
+.media-widget .current-image-container,
+.media-widget .previous-image-container {
     height: 60px;
-    width: 100%;
+    width: 200px;
 }
 
 .media-widget .media-row img {
@@ -75,6 +100,30 @@
     border: 1px solid #AAA;
 }
 
+.media-widget .media-option:hover {
+    background: linear-gradient(0, #CCC, #DDD);
+}
+
 .media-widget .wiget-item-container {
     float: left;
+}
+
+.media-widget .media-status {
+    float: left;
+}
+
+.media-widget .upload-area {
+    float: none;
+    height: 100%; 
+    background-color: red;
+    overflow: hidden;
+}
+
+.topwrapper {
+    width: 100%;
+    border-bottom: 1px solid #DDD;
+}
+
+.clear {
+    clear: both;
 }
