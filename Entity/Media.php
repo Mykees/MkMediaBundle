@@ -141,6 +141,16 @@ class Media
     {
         return $this->model;
     }
+    
+    /**
+     * Get model alias
+     *
+     * @return string
+     */
+    public function getModel()
+    {
+        return $this->model;
+    }
 
     /**
      * Set modelId
