@@ -1,4 +1,6 @@
 # Add to documentation #
+### Enable FOS Routing too ###
+https://github.com/FriendsOfSymfony/FOSJsRoutingBundle/blob/master/Resources/doc/index.md#installation
 
 ### Add MediaBundle to assetic bundles to your app/config.yml ###
 
@@ -45,3 +47,5 @@ Then in your FormType
             ))
         ;
     }
+
+You also need to let the 
