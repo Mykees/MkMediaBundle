@@ -76,7 +76,7 @@
     border: 1px dotted #025605;
 }
 
-.media-widget .media-selection-container {
+.media-widget .media-selection {
     overflow-y: scroll;
     overflow-x: hidden;
     resize: both;
@@ -144,6 +144,31 @@
     clear:both;
 }
 
-.upload-contents {
-    margin-top: 5px;
+.media-row.upload-area {
+    overflow: hidden;
+    border: 1px solid red;
+}
+
+div.container { 
+    width: auto;
+    min-width: 100%;
+    background: transparent;
+}
+
+div.container .upload-area {
+    padding: 1px;
+}
+
+div.container .dropzone {
+    min-height: 30px;
+}
+
+div.container .dropzone .dz-default.dz-message {
+    background-image: none;
+    top: none;
+    left: none;
+    margin: 0;
+    height: auto;
+    width: auto;
+    position: relative;
 }

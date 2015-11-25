@@ -1,16 +1,21 @@
 function MediaAjaxImageFetch (el) {
     el = $(el);
-    panel = el.closest('.media-widget');
+    selection = $('.media-selection', el);
 
     $.ajax({
         method: 'post',
         url: Routing.generate('mykees_media_ajax_fetch_for_model', {model:'SiteUser'}),
         success: function (response, status) {
-            el.html(response);
+            selection.html(response);
             $('.remove-on-ajax-complete').remove();
-            PrepareSelectionActions(el, panel);
+            PrepareSelectionActions(selection, el);
         }
     });
+}
+
+function PrepareUploadIframe (el) {
+    var iframe = $('iframe.uploadIframe', el);
+    var contents = $('iframe-contents', el);
 }
 
 function PrepareSelectionActions (el, panel) {
@@ -65,9 +70,6 @@ function UpdateCurrentAndPreviousMedia(clicked, context) {
         previousDatetime.html(currentDatetime.html());
     }
     $('.last-set-value', context).val(clickedValue);
-    console.log(clickedName);
-    console.log(currentName);
-    console.log(currentDatetime);
     currentName.html(clickedName.html());
     currentDatetime.html(clickedDatetime.html());
     currentImg.attr('src', clickedImg.attr('src'));
@@ -79,7 +81,8 @@ function UpdateCurrentAndPreviousMedia(clicked, context) {
 }
 
 $(function(){
-    $('.media-selection-container').each(function (a, el) {
+    $('.media-widget').each(function (a, el) {
         MediaAjaxImageFetch(el);
+        PrepareUploadIframe(el);
     });
 });
