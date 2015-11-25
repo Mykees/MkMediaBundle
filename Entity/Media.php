@@ -45,7 +45,7 @@ class Media
     /**
      * @var integer
      *
-     * @ORM\Column(name="model_id", type="integer")
+     * @ORM\Column(name="model_id", type="integer", nullable=true)
      */
     private $modelId;
 
