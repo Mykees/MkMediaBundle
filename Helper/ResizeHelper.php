@@ -30,22 +30,23 @@ class ResizeHelper
         $absolute_info = pathinfo($absolute_path);
         $allowedExtension = ['jpg','JPG','jpeg',"JPEG",'png','PNG','gif','GIF'];
         $extension = pathinfo($image);
+        $extension = $extension['extension'];
 
-        if (in_array($extension['extension'], $allowedExtension)) {
+        if (in_array($extension, $allowedExtension)) {
             if (!empty($this->options)) {
                 foreach ($this->options['size'] as $k => $v) {
                     $width = $v['width'];
                     $height = $v['height'];
-                    $dest = $absolute_info['dirname'].'/'.$absolute_info['filename'].'_'.$width.'x'.$height.'.jpg';
-
+                
+                    $dest = $absolute_info['dirname'].'/'.$absolute_info['filename'].'_'.$width.'x'.$height.'.'.$extension;
                     if (file_exists($dest)) {
                         return false;
                     }
-
+                    
                     $imagine = new \Imagine\Gd\Imagine();
                     $mode = $this->options['mode'];
 
-                    $imagine->open($absolute_info['dirname'] . '/' . $absolute_info['filename'] . '.jpg')
+                    $imagine->open($absolute_info['dirname'] . '/' . $absolute_info['filename'] . '.'.$extension)
                         ->thumbnail(
                             new \Imagine\Image\Box($width, $height),
                             !empty($mode) &&
