@@ -36,7 +36,7 @@ class ResizeHelper
                 foreach ($this->options['size'] as $k => $v) {
                     $width = $v['width'];
                     $height = $v['height'];
-                    $dest = $absolute_info['dirname'] . '/' . $absolute_info['filename'] . "_$width" . "x$height" . '.jpg';
+                    $dest = $absolute_info['dirname'].'/'.$absolute_info['filename'].'_'.$width.'x'.$height.'.jpg';
 
                     if (file_exists($dest)) {
                         return false;
@@ -46,7 +46,11 @@ class ResizeHelper
                     $mode = $this->options['mode'];
 
                     $imagine->open($absolute_info['dirname'] . '/' . $absolute_info['filename'] . '.jpg')
-                        ->thumbnail(new \Imagine\Image\Box($width, $height), !empty($mode) && $mode == 'inset' ? ImageInterface::THUMBNAIL_INSET : ImageInterface::THUMBNAIL_OUTBOUND)
+                        ->thumbnail(
+                            new \Imagine\Image\Box($width, $height),
+                            !empty($mode) &&
+                            $mode == 'inset' ? ImageInterface::THUMBNAIL_INSET : ImageInterface::THUMBNAIL_OUTBOUND
+                        )
                         ->save($dest);
                 }
             }
