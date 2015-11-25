@@ -37,11 +37,7 @@
             </div>
 
             <div class="media-row upload-area status-indicator">
-                <p class="upload-contents">
-                    <span class="fa fa-upload"></span> <span class="fa fa-picture-o"></span>
-                    <br/>
-                    Upload New Image
-                </p>
+                {{ iframe_basic_uploader(form.parent.vars.value) }}
             </div>
 
             {% if multimodel is defined and multimodel == true and models is defined %}
