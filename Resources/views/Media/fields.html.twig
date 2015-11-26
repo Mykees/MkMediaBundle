@@ -7,7 +7,7 @@
 
     <div {{ block('widget_container_attributes') }}>
         <div class="media-widget">
-            <input type="text" class="original-value" value="{{ value.id }}" />
+            <input type="text" class="original-value" value="{{ value ? value.id : '' }}" />
 
             <div class="previous-image-container media-row status-indicator" style="display:none;">
                 <img src="" alt=""/>
@@ -28,11 +28,11 @@
                 {% endif %}
                 <div class="current-image-text ">
                     <div class="status-title">Current Image:</div>
-                    <div class="image-info-text filename">{{ value.name }}</div>
+                    <div class="image-info-text filename">{{ value ? value.name : '' }}</div>
                     <div class="clear"></div>
                     <div class="image-info-text uploaded-info"><span class="upload-datetime">01/01/15 11:11</span></div>
                 </div>
-                <input type="text" class="last-set-value" value="{{ value.id }}" />
+                <input type="text" class="last-set-value" value="{{ value ? value.id : '' }}" />
 
             </div>
 
