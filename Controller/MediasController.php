@@ -9,6 +9,7 @@ use Mykees\MediaBundle\Form\Type\MediaType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class MediasController extends Controller
 {
@@ -58,6 +59,45 @@ class MediasController extends Controller
      * @throws \Exception
      * @return \Symfony\Component\HttpFoundation\Response
      */
+    public function addWithoutAssignAction(Request $request, $model, $bundle)
+    {
+        $requestArray = [
+            'file'=>$request->files,
+            'mode'=>$request->get('mode')
+        ];
+
+        if( $request->isXmlHttpRequest() && $requestArray['file'] )
+        {
+            // Init Event
+            $event = $this->initEvent($requestArray['file'], $model);
+
+            if($event->getMedia())
+            {
+                return $this->render('MykeesMediaBundle:Media:upload/upload_list.html.twig',[
+                    'params'=>$requestArray,
+                    'media'=>$event->getMedia(),
+                    'model'=>$model,
+                    'bundle'=>$bundle,
+                ]);
+                return JsonResponse($event->getMedia());
+            }else{
+                $response = new Response();
+                $response->setContent(json_encode(array(
+                    'error'=>"Le format n'est pas valid"
+                )));
+                $response->headers->set('Content-Type', 'application/json');
+                $response->setStatusCode(500);
+                return $response;
+            }
+        }
+    }
+
+    /**
+     * Save And Upload Media (Ajax)
+     * @param Request $request
+     * @throws \Exception
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function addAction( Request $request )
     {
         $requestArray = [
@@ -97,7 +137,7 @@ class MediasController extends Controller
         }
     }
 
-    private function initEvent($file,$model,$model_id)
+    private function initEvent($file, $model, $model_id = null)
     {
         $event = new UploadEvent();
         $event->setFile($file);
@@ -210,5 +250,34 @@ class MediasController extends Controller
         $referer = $request->headers->get('referer');
 
         return $this->redirect($referer);
+    }
+
+    /**
+     * Basic Uploader
+     * @param $model
+     * @param $bundle
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function basicUploaderAction($model, $bundle)
+    {
+        $params = [
+            'medias'=>$this->get('mk.media.manager')->findMediasByModel($model),
+            'url'=> ['model'=>$model,'bundle'=>$bundle]
+        ];
+        $form = $this->createForm(
+            new MediaType(),
+            new Media,
+            [
+                'action' => $this->generateUrl('mykees_media_add_without_assign', $params['url']),
+                'method' => 'POST',
+            ]
+        );
+
+        return $this->render('MykeesMediaBundle:Media:basic-uploader.html.twig',[
+            'form'=>$form->createView(),
+            'model'=>$model,
+            'bundle'=> $bundle,
+            'params'=>$params
+        ]);
     }
 }

@@ -10,13 +10,15 @@ namespace Mykees\MediaBundle\Helper;
 
 use Imagine\Image\ImageInterface;
 
-class ResizeHelper {
+class ResizeHelper
+{
 
     public $options;
     public $webroot;
 
 
-    public function __construct(array $resize_option, $webroot){
+    public function __construct(array $resize_option, $webroot)
+    {
         $this->options = $resize_option;
         $this->webroot = $webroot.'/img/';
     }
@@ -30,26 +32,26 @@ class ResizeHelper {
         $extension = pathinfo($image);
         $extension = $extension['extension'];
 
-        if(in_array($extension, $allowedExtension))
-        {
-            if(!empty($this->options))
-            {
-                foreach($this->options['size'] as $k=>$v)
-                {
+        if (in_array($extension, $allowedExtension)) {
+            if (!empty($this->options)) {
+                foreach ($this->options['size'] as $k => $v) {
                     $width = $v['width'];
                     $height = $v['height'];
-                    $dest = $absolute_info['dirname'] . '/' . $absolute_info['filename'] . "_$width" . "x$height" . '.'.$extension;
-
-                    if(file_exists($dest))
-                    {
+                
+                    $dest = $absolute_info['dirname'].'/'.$absolute_info['filename'].'_'.$width.'x'.$height.'.'.$extension;
+                    if (file_exists($dest)) {
                         return false;
                     }
-
+                    
                     $imagine = new \Imagine\Gd\Imagine();
                     $mode = $this->options['mode'];
 
                     $imagine->open($absolute_info['dirname'] . '/' . $absolute_info['filename'] . '.'.$extension)
-                        ->thumbnail(new \Imagine\Image\Box($width,$height), !empty($mode) && $mode == 'inset' ? ImageInterface::THUMBNAIL_INSET : ImageInterface::THUMBNAIL_OUTBOUND)
+                        ->thumbnail(
+                            new \Imagine\Image\Box($width, $height),
+                            !empty($mode) &&
+                            $mode == 'inset' ? ImageInterface::THUMBNAIL_INSET : ImageInterface::THUMBNAIL_OUTBOUND
+                        )
                         ->save($dest);
                 }
             }

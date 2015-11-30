@@ -14,6 +14,14 @@ mykees_media_add:
         model_id: \d+
         _method:  POST
 
+mykees_media_add_without_assign:
+    path: /add/{model}/{bundle}
+    defaults: { _controller: MykeesMediaBundle:Medias:addWithoutAssign }
+    requirements:
+        model: '[a-zA-Z0-9]+'
+        bundle: '[a-zA-Z0-9]+'
+    methods:  POST
+
 mykees_media_thumb:
     path: /thumb/{model}/{bundle}/{model_id}/{id}
     defaults: { _controller: MykeesMediaBundle:Medias:thumb }
@@ -39,3 +47,20 @@ mykees_media:
         bundle: '[a-zA-Z0-9]+'
         model_id: \d+
         editor: '[a-zA-Z0-9]+'
+
+mykees_media_basic:
+    path:     /{model}/{bundle}
+    defaults: { _controller: MykeesMediaBundle:Medias:basicUploader}
+    requirements:
+        model: '[a-zA-Z0-9]+'
+        bundle: '[a-zA-Z0-9]+'
+
+mykees_media_ajax_fetch_for_model:
+    path: /media/widget/{model}
+    defaults: { _controller: MykeesMediaBundle:WidgetAjax:fetchForModel }
+    requirements:
+        model: '[a-zA-Z0-9]+'
+    methods: [POST]
+    options:
+        expose: true
+

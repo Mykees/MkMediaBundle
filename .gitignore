@@ -44,3 +44,7 @@ Icon
 Network Trash Folder
 Temporary Items
 .apdisk
+
+# Vim temp files
+*.swp
+*.swo

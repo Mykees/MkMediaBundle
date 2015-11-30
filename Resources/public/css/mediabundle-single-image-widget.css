@@ -1,0 +1,174 @@
+/* make sure the parent has a w/h */
+.verticalAlignText {
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+    vertical-align: middle;
+    float: left;
+    margin-left: 10px;
+}
+
+/* Widget */
+
+.media-widget {
+    width: 250px;
+}
+
+.media-widget input.original-value,
+.media-widget input.last-set-value {
+    display: none;
+}
+
+.media-widget .image-info-text {
+    font-size: 11px;
+    font-weight: normal;
+    color: #A94442;
+    float: left;
+    margin-left: 5px;
+}
+
+.media-widget input[type="radio"] {
+    display: none;
+}
+
+.media-widget label {
+    height: 100%;
+    width: 100%;
+}
+
+.media-widget .filename {
+    font-size: 15px;
+    font-weight: normal;
+    margin-top: 5px;
+    margin-left: 5px;
+    width: 60%;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.media-widget .media-row {
+    border-radius: 3px;
+    background: linear-gradient(0, #DDDDDD, #CCCCCC) repeat;
+    font-size: 17px;
+    font-weight: bold;
+    height: 70px;
+    width: 250px;
+    margin: 1px;
+    float: left;
+}
+
+.media-widget .media-row.clickable,
+.media-widget .media-row.clickable label {
+    cursor: pointer;
+}
+
+.media-widget .media-option.selected {
+    background-color: #B4BFA8;
+    background-image: linear-gradient(#B4BFA8, #8AC383);
+}
+
+.media-widget .media-option.selected:hover {
+    background-color: #B4BFA8;
+    background-image: linear-gradient(#8AC383, #B4BFA8);
+}
+
+.media-widget .media-option.selected img {
+    border: 1px dotted #025605;
+}
+
+.media-widget .media-selection {
+    overflow-y: scroll;
+    overflow-x: hidden;
+    resize: both;
+    min-width: 270px;
+    height: 120px;
+}
+
+.media-widget .media-option {
+    font-size: 16px;   
+    font-weight: normal;
+}
+
+.media-widget .previous-image-container {
+    background: linear-gradient(0, #999, #777);
+    background-image:url('/bundles/mykeesmedia/images/stripe.png')
+}
+
+.media-widget .status-indicator {
+    height: 80px;
+}
+
+.media-widget .media-row img {
+    max-width: 50px;
+    max-height: 50px;
+    float: right;
+    border-radius: 5px;
+    opacity: 0.85;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+    margin-right: 4px;
+    border: 1px solid #AAA;
+}
+
+.media-widget .media-option:hover {
+    background: linear-gradient(0, #CCC, #DDD);
+}
+
+.media-widget .wiget-item-container {
+    float: left;
+}
+
+.media-widget .media-status {
+    float: left;
+}
+
+.media-widget .upload-area {
+    background-color: red;
+    font-size: 20px;
+    vertical-align:middle;
+    text-align: center;
+}
+
+.status-indicator .status-title {
+    width: 50%;
+    padding-left:5px;
+    padding-top: 3px;
+    font-size: 11px;
+    border-bottom: 1px solid #555;
+    float:left;
+}
+
+.clear {
+    height: 0;
+    clear:both;
+}
+
+.media-row.upload-area {
+    overflow: hidden;
+    border: 1px solid red;
+}
+
+div.container { 
+    width: auto;
+    min-width: 100%;
+    background: transparent;
+}
+
+div.container .upload-area {
+    padding: 1px;
+}
+
+div.container .dropzone {
+    min-height: 30px;
+}
+
+div.container .dropzone .dz-default.dz-message {
+    background-image: none;
+    top: none;
+    left: none;
+    margin: 0;
+    height: auto;
+    width: auto;
+    position: relative;
+}

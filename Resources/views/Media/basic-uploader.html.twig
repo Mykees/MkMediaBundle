@@ -1,0 +1,24 @@
+{% extends 'MykeesMediaBundle:Media:layout.html.twig' %}
+
+
+{% block stylesheets %}
+    {% stylesheets debug=false output="css/basic-uploader.css"
+        '@MykeesMediaBundle/Resources/public/css/basic-uploader.css'
+    %}
+        <link rel="stylesheet" type="text/css" href="{{ asset_url }}"/>
+    {% endstylesheets %}
+
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('bundles/mykeesmedia/css/dropzone.css') }}">
+{% endblock %}
+
+{% block body %}
+
+    {% include "MykeesMediaBundle:Media:upload/basic-upload.html.twig" %}
+
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript" src="{{ asset('bundles/mykeesmedia/js/dropzone.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/mykeesmedia/js/ZeroClipboard.js') }}"></script>
+{% endblock %}

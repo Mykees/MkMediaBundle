@@ -8,7 +8,6 @@
 
 namespace Mykees\MediaBundle\EventListener;
 
-
 use Doctrine\Common\Persistence\ManagerRegistry;
 use Mykees\MediaBundle\Helper\ResizeHelper;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -18,7 +17,8 @@ use Mykees\MediaBundle\Entity\Media;
 use Mykees\MediaBundle\Util\Urlizer;
 use Symfony\Component\HttpFoundation\Response;
 
-class UploadSubscriber implements EventSubscriberInterface {
+class UploadSubscriber implements EventSubscriberInterface
+{
 
     public $em;
 
@@ -36,7 +36,7 @@ class UploadSubscriber implements EventSubscriberInterface {
     }
 
 
-    public function uploadProcess( UploadEvent $event )
+    public function uploadProcess(UploadEvent $event)
     {
         $file  = $event->getFile()->all();
         $fileUploaded = $file['file'];
@@ -47,47 +47,48 @@ class UploadSubscriber implements EventSubscriberInterface {
         $DS = DIRECTORY_SEPARATOR;
 
 
-        if( $this->isValidExtension($extension,$event) )
-        {
-            //create dir
+        if ($this->isValidExtension($extension, $event)) {
+        //create dir
             $webroot = $event->getRootDir().'/../web';
             $dir = $webroot.'/img';
 
-            if(!file_exists($dir)){mkdir($dir,0777);}
+            if (!file_exists($dir)) {
+                mkdir($dir, 0777);
+            }
 
             $dir .= $DS.date('Y');
-            if(!file_exists($dir)){mkdir($dir,0777);}
+            if (!file_exists($dir)) {
+                mkdir($dir, 0777);
+            }
 
             $dir .= $DS.date('m');
-            if(!file_exists($dir)){mkdir($dir,0777);}
+            if (!file_exists($dir)) {
+                mkdir($dir, 0777);
+            }
 
             //clean and define path filename
-            $filename = $this->cleanFilename( $fileUploaded->getClientOriginalName(), $extension );
+            $filename = $this->cleanFilename($fileUploaded->getClientOriginalName(), $extension);
             //test duplicate
-            $name = $this->mediaExist( $filename,$webroot );
+            $name = $this->mediaExist($filename, $webroot);
 
             $filePath = date('Y').'/'.date('m').'/'.$name;
             $save_media = $this->saveMedia($filePath, $name, $model, $model_id);
 
-            if($save_media)
-            {
-                //upload
-                $fileUploaded->move($dir,$name);
+            if ($save_media) {
+            //upload
+                $fileUploaded->move($dir, $name);
                 $event->setMedia($save_media);
 
-                if(!empty($resize_option[$model]))
-                {
+                if (!empty($resize_option[$model])) {
                     $resize = new ResizeHelper($resize_option[$model], $webroot);
                     $resize->resize($save_media->getFile());
                 }
 
                 return true;
-            }else{
-
+            } else {
                 return new Response();
             }
-        }else{
-
+        } else {
             return new Response();
         }
     }
@@ -98,12 +99,12 @@ class UploadSubscriber implements EventSubscriberInterface {
      * @param $event
      * @return bool
      */
-    private function isValidExtension($extension,$event)
+    private function isValidExtension($extension, $event)
     {
         $extensions = $event->getContainer()->getParameter('mykees.media.extension');
         $valid_extensions = !empty($extensions) ? $extensions : ['jpg','jpeg','JPG','JPEG'];
 
-        return in_array($extension,$valid_extensions);
+        return in_array($extension, $valid_extensions);
     }
 
     /**
@@ -112,10 +113,10 @@ class UploadSubscriber implements EventSubscriberInterface {
      * @param $extension
      * @return string
      */
-    private function cleanFilename( $filename, $extension )
+    private function cleanFilename($filename, $extension)
     {
-        $f = explode('.',$filename);
-        $cleanFilename = Urlizer::urlize(implode('.',array_slice($f,0,-1)));
+        $f = explode('.', $filename);
+        $cleanFilename = Urlizer::urlize(implode('.', array_slice($f, 0, -1)));
 
         return $cleanFilename.'.'.$extension;
     }
@@ -127,22 +128,21 @@ class UploadSubscriber implements EventSubscriberInterface {
      * @param int $count
      * @return string
      */
-    private function mediaExist( $filename, $webroot, $count=0 )
+    private function mediaExist($filename, $webroot, $count = 0)
     {
         $file = $filename;
         $filePath = false;
-        if($count > 0){
-            $f = explode('.',$filename);
+        if ($count > 0) {
+            $f = explode('.', $filename);
             $file = $f[0].'_'.$count.'.'.end($f);
             $filePath = $webroot.'/img/'.date('Y').'/'.date('m').'/'.$file;
         }
         $filePath = !$filePath ? $webroot.'/img/'.date('Y').'/'.date('m').'/'.$file : $filePath;
-        if(file_exists($filePath))
-        {
+        if (file_exists($filePath)) {
             $count++;
 
-            return $this->mediaExist( $filename, $webroot, $count );
-        }else{
+            return $this->mediaExist($filename, $webroot, $count);
+        } else {
             $filename =  $file;
 
             return $filename;
@@ -160,7 +160,7 @@ class UploadSubscriber implements EventSubscriberInterface {
     private function saveMedia($filePath, $filename, $model, $model_id)
     {
         $media = new Media();
-        $fn = explode('.',$filename);
+        $fn = explode('.', $filename);
         $media->setName($fn[0]);
         $media->setMediableModel($model);
         $media->setMediableId($model_id);
@@ -171,6 +171,4 @@ class UploadSubscriber implements EventSubscriberInterface {
 
         return $media;
     }
-
-
 }

@@ -1,0 +1,11 @@
+<div id="upload-area" class="basic-upload-area upload-area">
+    <div class="row">
+        <div class="col-md-12">
+            {{ form_start(form,{'attr': { 'class':'dropzone no-margin','id':'my-dropzone' }}) }}
+            <div class="fallback">
+                {{ form_row(form.fileData,{'attr': { 'multiple':'multiple' }} ) }}
+            </div>
+            {{ form_end(form) }}
+        </div>
+    </div>
+</div>
