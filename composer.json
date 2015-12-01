@@ -1,5 +1,5 @@
 {
-    "name": "bay12/symfony2-media-bundle",
+    "name": "mykees/symfony2-media-bundle",
     "type": "symfony-bundle",
     "description": "symfony media bundle",
     "keywords": ["symfony2","media","bundle","image","upload","drag and drop", "widget"],
