@@ -4,13 +4,16 @@ php:
     - 5.6
 
 env:
-    - SYMFONY_VERSION=2.6.*
+    - SYMFONY_VERSION=2.7.*
+
+before_install:
+    - composer self-update
 
 before_script:
+    - phpenv config-rm xdebug.ini || true
     - mysql -e "create database test;"
-    - composer self-update
-    - composer require symfony/symfony:${SYMFONY_VERSION}
-    - composer install --dev
+    - composer require symfony/symfony:${SYMFONY_VERSION} --no-update
+    - composer install
     - php Tests/Fixtures/bin/console --env=test doctrine:schema:create
     - php Tests/Fixtures/bin/console --env=test doctrine:schema:update --force
     - php Tests/Fixtures/bin/console --env=test assetic:dump
