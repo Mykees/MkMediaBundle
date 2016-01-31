@@ -5,7 +5,7 @@
 
 The goal of this bundle is to allow you to associate media to your entities
 
-<img src="http://mykees.github.io/MkMediaBundle/img/uploader.jpg">
+<img src="http://mykees.github.io/MkMediaBundle/assets/images/uploader.jpg">
 
 ##Documentation
 [DOC](http://mykees.github.io/MkMediaBundle/)
