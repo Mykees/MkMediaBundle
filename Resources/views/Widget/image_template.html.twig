@@ -1,0 +1,14 @@
+{% spaceless %}
+    <div class="media-row media-option">
+        <label for="{{ image.name }}">
+            <img class="" src="/img/{{ image.file }}"/>
+            <div class="filename" title="{{ image.name }}">{{ image.name }}</div>
+            <div class="uploaded-info image-info-text"><span class="upload-datetime">{{ image.createdOn|date('d/m/y h:i') }}</span></div>
+            <div class="clear"></div>
+            <div class="model-info image-info-text">Category:<span class="model-name">{{ image.getModel }}</span></div>
+
+            <input type="radio" id="{{ image.name }}" name="bay12_corebundle_siteuser[profileImage]" value="{{ image.id }}">
+        </label>
+    </div>
+{% endspaceless %}
+

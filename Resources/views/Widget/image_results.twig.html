@@ -1,0 +1,5 @@
+{% for image in images %}
+    {% set i = 0 %}
+    {% include 'MykeesMediaBundle:Media:image_template.html.twig' with {image: image, i: i} %} 
+    {% set i = i + 1 %}
+{% endfor %}

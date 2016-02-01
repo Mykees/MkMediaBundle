@@ -45,17 +45,28 @@ class Media
     /**
      * @var integer
      *
-     * @ORM\Column(name="model_id", type="integer")
+     * @ORM\Column(name="model_id", type="integer", nullable=true)
      */
     private $modelId;
 
     private $fileData;
+    
+    /**
+     * @var DateTime
+     *
+     * @ORM\Column(name="createdOn", type="datetime")
+     */
+    private $createdOn;
 
+    public function __construct()
+    {
+        $this->createdOn = new \DateTime();
+    }
 
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -78,7 +89,7 @@ class Media
     /**
      * Get name
      *
-     * @return string 
+     * @return string
      */
     public function getName()
     {
@@ -101,7 +112,7 @@ class Media
     /**
      * Get file
      *
-     * @return string 
+     * @return string
      */
     public function getFile()
     {
@@ -124,9 +135,19 @@ class Media
     /**
      * Get model
      *
-     * @return string 
+     * @return string
      */
     public function getMediableModel()
+    {
+        return $this->model;
+    }
+    
+    /**
+     * Get model alias
+     *
+     * @return string
+     */
+    public function getModel()
     {
         return $this->model;
     }
@@ -147,7 +168,7 @@ class Media
     /**
      * Get modelId
      *
-     * @return integer 
+     * @return integer
      */
     public function getMediableId()
     {
@@ -168,5 +189,22 @@ class Media
     public function setFileData($fileData)
     {
         $this->fileData = $fileData;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getCreatedOn()
+    {
+        return $this->createdOn;
+    }
+
+    /**
+     * @param \DateTime
+     */
+    public function setCreatedOn(\DateTime $datetime)
+    {
+        $this->createdOn = $datetime;
+        return $this->createdOn;
     }
 }
